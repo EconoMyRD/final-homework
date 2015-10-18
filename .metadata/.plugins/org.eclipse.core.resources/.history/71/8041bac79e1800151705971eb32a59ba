@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="1.0">
+	<persistence-unit name="Unidade_De_Persistencia_Aula1"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"></property>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres5636-economy.jelastic.under.com.br"></property>
+			<property name="javax.persistence.jdbc.user" value="webadmin"></property>
+			<property name="javax.persistence.jdbc.password" value="OFGvfs26020"></property>
+		</properties>
+	</persistence-unit>
+</persistence>

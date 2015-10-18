@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+   <link rel="stylesheet" href="../css/Estilos.css" > 
+    <title>Relatórios | Economy</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">google.load('visualization', '1.0', {'packages':['corechart']});</script> 
+    
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="lancamento.html" class="menu-interno">Novo Lançamento</a></li>
+				<li><a href="relatorio.html" class="menu-interno">Relatórios</a></li>
+				<li><a href="estatisticas.html" class="menu-interno">Estatísticas</a></li>
+			</ul>
+		</nav>
+		<div id="exit">Sair</div>
+	</header>
+   <!-- <section id="headerGerencial"></section>-->
+   
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, ab eos suscipit expedita quas quis officia fugit reprehenderit,         blanditiis commodi similique dolore vitae fuga quasi, officiis ipsa error aperiam. Non.</p>
+    
+    <form id="formRelatorio">
+        <fieldset>
+            <legend>Relatórios</legend>
+            <label for="">Período: 
+                <input type="date" id="dateStart">
+                a
+                <input type="date" id="dateEnd">
+            </label>
+            
+            <label for="">
+                Catedoria:
+                <select name="category" id="category">
+                    
+                </select>
+            </label>
+            
+            <input type="submit" id="submit" value="Analisar" class="botaoRelatorio">
+        </fieldset>
+    </form>
+    
+	<div id="chart_div"> 
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	
+	<div id="total"> </div>
+	
+	<!-- <div id="footer"></div>-->
+	<footer class="clear">
+              <div class="content">
+                  
+              </div>
+            <div class="footer_interno">
+                <div class="content">
+                   <h5>© 2015 - Todos os direitos reservados</h5>
+                </div>
+            </div>
+        </footer>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/Economy/javascript/login.js"></script>
+	<script type="text/javascript"src = "/Economy/javascript/ajaxInit.js"></script>
+	<script type="text/javascript"src = "/Economy/javascript/relatorio.js"></script>
+	<script type="text/javascript" src = "/Economy/javascript/makeGraphic.js"></script>
+	<script type="text/javascript" src ="../javascript/LogoffSystem.js"></script>
+</body>
+</html>

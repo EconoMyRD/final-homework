@@ -1,0 +1,61 @@
+
+/*css Comum- importar  */
+header{
+    background-color: cyan;
+    padding: 5px;
+    margin-bottom: 3em;
+}
+
+header h1{
+    text-align: center;
+}
+nav ul li{
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0px  10px;
+    text-align: center;
+}
+nav{
+    width: 600px;
+    height: 35px;
+    line-height: 0px;
+    top: 98px;
+    background-color: aquamarine; 
+    position:  absolute;
+    left: 50%;
+    margin-left:-300px;
+}
+
+nav::before{
+    content: "";
+    background-color: aqua;
+    width: 100%;
+    height: 20px;
+}
+nav ul li a{
+    text-decoration: none;
+    color:black;
+    padding: 5px 0;
+}
+
+nav ul li a:hover{
+    background-color:azure;
+    padding: 10px 0;
+}
+    
+
+/* css comum- importar */
+
+
+fieldset{
+    border: 2px solid black;
+    display: inline;
+}
+
+label{
+    margin-right: 15px;
+}
+label input{
+    margin-right: 10px;
+    margin-left: 10px;
+}

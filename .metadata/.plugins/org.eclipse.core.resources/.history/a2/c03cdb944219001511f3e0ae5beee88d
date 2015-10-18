@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>relatorios</title>
+    
+    <link rel="stylesheet" href="/Economy/css/relatorioStyle.css">
+</head>
+
+<body>
+   <header>
+		<h1>EconoMY</h1>
+        <nav>
+            <ul>
+                <li> <a href="relatorio.html">Relatorios</a></li>
+                <li><a href="novoLancamento.html">Nova Lançamento</a></li>
+                <li><a href="#">Calendario de Contas</a></li>
+            </ul>
+        </nav>
+	</header>
+    
+    
+    <form action="">
+        <fieldset>
+            <legend>Relatórios</legend>
+            <label for="">Período
+                <input type="date" id="dateStart">
+                a
+                <input type="date" id="dateEnd">
+            </label>
+            
+            <label for="">
+                Catedoria:
+                <select name="category" id="category">
+                
+                </select>
+            </label>
+            
+            <input type="submit" id="submit">
+        </fieldset>
+    </form>
+    
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, ab eos suscipit expedita quas quis officia fugit reprehenderit,         blanditiis commodi similique dolore vitae fuga quasi, officiis ipsa error aperiam. Non.</p>
+
+
+	<div id="chart_div">
+		here will be the chart
+	</div>
+	
+	<script type="text/javascript"src = "/Economy/javascript/ajaxInit.js"></script>
+	<script type="text/javascript"src = "/Economy/javascript/relatorio.js"></script>
+	<script type="text/javascript" src = "/Economy/javascript/makeGraphic.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+</body>
+</html>

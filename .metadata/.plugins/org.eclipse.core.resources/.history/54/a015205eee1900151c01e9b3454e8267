@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/Estilos.css">
+    <title>Lançamentos | Economy</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="lancamento.html" class="menu-interno">Novo Lançamento</a></li>
+				<li><a href="relatorio.html" class="menu-interno">Relatórios</a></li>
+				<li><a href="estatisticas.html" class="menu-interno">Estatísticas</a></li>
+			</ul>
+		</nav>
+		<div id="exit">Sair</div>
+	</header>
+	
+	<!-- <section id="headerGerencial"></section> -->
+    <div class="coluna-meio">
+          <p>Essa sessão é destinada ao lançamento de despesas. Lembre-se sempre de manter as suas despesas cadastradas, assim você terá análises mais coesas e precisas. Veja como é simples lançar despesas no Economy:</p>
+          
+          <p>Preencha os campos corretamente sendo sempre o mais preciso e verdadeiro na informação desses. Logo depois é só clicar no botão lançar e pronto, Despesa cadastrada.</p>
+      </div>
+       <div class="coluna-meio">
+           <form>
+             <fieldset>
+               
+                <label for="description">
+                    Descrição:
+                    <input type="text" id="description" class="inputComentario" maxlength="300" required/>        
+                </label>
+                <label for="value">
+                    Valor:
+                    <input type="number" id="value" class="field" step="any" required/>        
+                </label>
+                <label for="category">
+                    Categoria:
+                    <select name="" id="category" class="field" required>
+                    </select>
+                </label>  
+                <label for="subcategory">
+                    Subcategoria:
+                    <select  id="subcategory" class="field" required>
+                    </select>        
+                </label>
+                <label for="date_transaction">
+                    Data:
+                    <input type="date" id="date_transaction" class="field" required/>  
+                </label>
+                <label>
+                    <input id="submit" type="submit" value="Lançar" class="botao" />
+                </label>
+            </fieldset>
+        </form>
+       </div>
+       
+       <!-- <div id="footer"></div>-->
+       <footer class="clear">
+              <div class="content">
+                  
+              </div>
+            <div class="footer_interno">
+                <div class="content">
+                   <h5>© 2015 - Todos os direitos reservados</h5>
+                </div>
+            </div>
+        </footer>
+       
+       <script type="text/javascript" src = "../javascript/ajaxInit.js"></script>
+       <script type="text/javascript" src = "../javascript/novoLancamento.js"></script>
+     <!--   <script type="text/javascript" src = "../javascript/jquery-1.2.6.js"></script>-->
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+     <!--  <script type="text/javascript" src = "../javascript/jquery.js"></script>-->
+		<script type="text/javascript" src = "../javascript/login.js"></script> 
+		<script type="text/javascript" src ="../javascript/LogoffSystem.js"></script>      
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Economy</title>
+    <link rel="stylesheet" href="/Economy/css/novoLancamentoStyle.css">    
+</head>
+
+<body>
+
+<header>
+		<h1>EconoMY</h1>
+        <nav>
+            <ul>
+                <li> <a href="relatorio.html">Relatorios</a></li>
+                <li><a href="novoLancamento.html">Nova Lançamento</a></li>
+                <li><a href="#">Calendario de Contas</a></li>
+            </ul>
+        </nav>
+	</header>
+
+<div id="content">
+
+
+<!--conteudo explicativo sobre lançametos-->
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam nesciunt, exercitationem esse fuga sapiente distinctio, nisi quos expedita ut. Molestiae dignissimos autem exercitationem libero nisi suscipit laboriosam odio accusamus.   </p>
+
+
+
+ <!--formulario para lancamento de despesa/receita-->
+<div id="lancamento"> 
+    <form action="">
+        <fieldset>
+            <legend>Lançamento</legend>
+
+            <label for="">
+                Descrição:
+                <input type="text" id="description"  class="field">        
+            </label>
+
+            <label for="">
+                Valor:
+                <input type="text"  id="value"class="field">        
+            </label>
+
+           <label for="">
+           		Categoria:
+               <select name="" id="category" class="field">
+                   
+               </select>
+           </label>
+               
+            <label for="" >
+                Subcategoria:
+                <select  id="subcategory" class="field">
+                    
+                    
+                </select>        
+            </label>
+
+            <label for="">
+                data:
+                <input type="date" id="date_transaction" class="field" >  
+                
+                 
+            </label>
+            
+            <label for="">
+                <input id="submit" type="submit" value="Enviar">
+            </label>
+
+       </fieldset>
+    </form>
+</div>
+</div>
+
+<!--  import js -->
+<script type="text/javascript" src="/Economy/javascript/ajaxInit.js"></script>
+
+<script type="text/javascript" src="/Economy/javascript/novoLancamento.js"></script>
+
+</body>
+</html>

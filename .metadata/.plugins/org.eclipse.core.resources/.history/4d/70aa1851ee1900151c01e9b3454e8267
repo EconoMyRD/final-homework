@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/Estilos.css" />
+    <title>Estatísticas | Economy</title>
+</head>
+<body>
+	<!-- <section id="headerGerencial"></section>-->
+	<header>
+		<nav>
+			<ul>
+				<li><a href="lancamento.html" class="menu-interno">Novo Lançamento</a></li>
+				<li><a href="relatorio.html" class="menu-interno">Relatórios</a></li>
+				<li><a href="estatisticas.html" class="menu-interno">Estatísticas</a></li>
+			</ul>
+		</nav>
+		<div id="exit">Sair</div>
+	</header>
+	
+    esseseseseses
+    
+    <div id="footer"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../javascript/login.js"></script>
+	<script type="text/javascript" src ="../javascript/LogoffSystem.js"></script>
+</body>
+</html>

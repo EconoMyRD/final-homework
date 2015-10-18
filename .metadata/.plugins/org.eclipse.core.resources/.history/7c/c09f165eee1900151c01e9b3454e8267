@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+   <link rel="stylesheet" href="../css/Estilos.css" > 
+    <title>Relatórios | Economy</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">google.load('visualization', '1.0', {'packages':['corechart']});</script> 
+    
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="lancamento.html" class="menu-interno">Novo Lançamento</a></li>
+				<li><a href="relatorio.html" class="menu-interno">Relatórios</a></li>
+				<li><a href="estatisticas.html" class="menu-interno">Estatísticas</a></li>
+			</ul>
+		</nav>
+		<div id="exit">Sair</div>
+	</header>
+   <!-- <section id="headerGerencial"></section>-->
+   
+    <p>Aqui você poderá analisar todos seus lançamentos. Lembrando que quanto mais verdadeiro foi seu cadastro de despesas mais preciso serão seus relatórios e análises. Selecione um período e gerencie suas despesas.</p>
+     
+     
+    <form id="formRelatorio">
+        <fieldset>
+            <legend>Relatórios</legend>
+            <label for="">Período: 
+                <input type="date" id="dateStart" required>
+                a
+                <input type="date" id="dateEnd" required>
+            </label>
+            
+            <label for="">
+                Catedoria:
+                <select name="category" id="category" required>
+                    
+                </select>
+            </label>
+            
+            <input type="submit" id="submit" value="Analisar" class="botaoRelatorio">
+        </fieldset>
+    </form>
+    
+	<div id="chart_div"> 
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	
+	<div id="total"> </div>
+	
+	<!-- <div id="footer"></div>-->
+	<footer class="clear">
+              <div class="content">
+                  
+              </div>
+            <div class="footer_interno">
+                <div class="content">
+                   <h5>© 2015 - Todos os direitos reservados</h5>
+                </div>
+            </div>
+        </footer>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../javascript/login.js"></script>
+	<script type="text/javascript"src = "../javascript/ajaxInit.js"></script>
+	<script type="text/javascript"src = "../javascript/relatorio.js"></script>
+	<script type="text/javascript" src = "../javascript/makeGraphic.js"></script>
+	<script type="text/javascript" src ="../javascript/LogoffSystem.js"></script>
+</body>
+</html>

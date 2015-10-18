@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Economy</title>
+    <link rel="stylesheet" href="../css/Estilos.css">
+    <link rel='shortcut icon' href='../favicon.ico'>
+</head>
+<body>
+     <section>  
+       <header>
+            <nav>
+                <ul>
+                    <li><a href="lancamento.html" class="menu-interno">Novo Lançamento</a></li>
+                    <li><a href="relatorio.html" class="menu-interno">Relatórios</a></li>
+                    <li><a href="estatisticas.html" class="menu-interno">Estatísticas</a></li>
+                </ul>
+            </nav> 
+            <a id="exit">Sair</a>                            
+        </header>       
+     </section>
+     <section class="content clear">
+        <div id="conteudoInicial">
+                <div class="coluna_terco">
+                    <div class="center_div">
+                        <h1>CONTROLE</h1>
+                    </div>
+                    <div>
+                        <h2>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem natus quasi blanditiis explicabo minus consequuntur libero aliquid obcaecati velit rerum molestiae veritatis repudiandae officiis praesentium, ratione. Ad, deleniti. Quod, iusto! 
+                        </h2>
+                    </div>
+                    <div>
+                        <img src="../imagens/controle.jpg" alt="Controle Economy">
+                    </div>
+                </div>
+                <div class="coluna_terco">
+                    <div class="center_div">
+                        <h1>ANÁLISE</h1>
+                    </div>
+                    <div>
+                        <h2>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi placeat architecto facilis sit, neque, blanditiis expedita illum hic enim velit delectus ipsam harum culpa aut eos labore illo quas consequatur. 
+                        </h2>
+                    </div>
+                    <div>
+                        <img src="../imagens/grafico3.jpg" alt="Análise Economy">
+                    </div>
+                </div>
+                <div class="coluna_terco">
+                   <div class="center_div">
+                        <h1>ECONOMIA</h1>
+                    </div>
+                    <div>
+                        <h2>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet ut itaque, voluptatem perspiciatis omnis pariatur accusantium ipsum vero architecto molestiae quidem cum excepturi. Quasi labore delectus tempore, beatae impedit accusamus!
+                        </h2>
+                    </div>
+                    <div>
+                        <img src="../imagens/economia.jpeg" alt="Economia Economy">
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        <div id="conteudo"></div>
+     </section>
+     <div id="footerGerencial"></div> 
+     
+     
+     <!-- SCRIPTS -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+     <script type="text/javascript" src="../javascript/login.js"></script>
+</body>
+</html>

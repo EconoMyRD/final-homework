@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../Economy/css/Estilos.css">
+</head>
+<body>
+    <header>
+        <div class="content">
+            <img src="imagens/logo.png" alt="EconoMy" />
+            <nav>
+                <ul>
+                    <li><a href="index.html#header">Home</a></li>
+                    <li><a href="index.html#descricao">Sobre</a></li>
+                    <li><a href="index.html#depoimento">Depoimentos</a></li>
+                    <li><a href="index.html#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <div id="logar">Entrar</div>
+             <div id="cadastrar">
+                <a href="index.html#contato">Quero me Cadastrar</a>
+            </div>
+            <nav class="menu-secundario">
+                <div id="div-logar">
+                <p id = "messageLogin">Preencha os campos para acessar sua conta</p>
+                <form id="loginSystem">                   
+                    <input type="email" id="user" name="usuario" placeholder="Email" required />
+                    <input type="password" id="password" placeholder="Senha" required />    
+                    <input type="submit" id="BtnSignIn" class="botao" value="Sign In"/>                        
+                </form>
+                </div>          
+            </nav>                        
+        </div>
+    </header>
+    
+    <script type="text/javascript" src = "../javascript/loginSystem.js"></script>
+</body>
+</html>

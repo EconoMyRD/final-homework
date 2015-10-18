@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <title>EconoMy | Controle Financeiro Pessoal</title>
+        <link rel="stylesheet" type="text/css" href="css/Estilos.css">
+        <link rel='shortcut icon' href='favicon.ico'>
+    </head>
+    <body onLoad="slider.slide1()">     
+       <div id="header"></div>
+        <section>
+             <div id="slider">
+                <a id="aId"><img id="id"></a>
+             </div>
+        </section>
+        <section class="content clear">
+            <div id="descricao">
+                <div class="coluna_terco">
+                    <div class="center_div">
+                        <h1>CONTROLE</h1>
+                    </div>
+                    <div>
+                        <h2>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem natus quasi blanditiis explicabo minus consequuntur libero aliquid obcaecati velit rerum molestiae veritatis repudiandae officiis praesentium, ratione. Ad, deleniti. Quod, iusto! 
+                        </h2>
+                    </div>
+                </div>
+                <div class="coluna_terco">
+                    <div class="center_div">
+                        <h1>ANÁLISE</h1>
+                    </div>
+                    <div>
+                        <h2>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi placeat architecto facilis sit, neque, blanditiis expedita illum hic enim velit delectus ipsam harum culpa aut eos labore illo quas consequatur. 
+                        </h2>
+                    </div>
+                </div>
+                <div class="coluna_terco">
+                   <div class="center_div">
+                        <h1>ECONOMIA</h1>
+                    </div>
+                    <div>
+                        <h2>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet ut itaque, voluptatem perspiciatis omnis pariatur accusantium ipsum vero architecto molestiae quidem cum excepturi. Quasi labore delectus tempore, beatae impedit accusamus!
+                        </h2>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div id="depoimento" class="clear">
+                <div class="coluna_quarto">
+                   <div class="depoimento_image">
+                      <img src="imagens/7.jpeg" alt="Depoimentos" class="image"> 
+                   </div>
+                   <div class="center">
+                       <h3>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium sed aut eius nihil, autem incidunt iure eveniet. Quibusdam delectus, voluptas, quis aliquid ab, magnam minus magni molestiae ut eaque rerum!</h3>
+                   </div>
+                </div>
+                <div class="coluna_quarto">
+                    <div class="depoimento_image">
+                      <img src="imagens/6.jpeg" alt="Depoimentos" class="image"> 
+                   </div>
+                    <div class="center">
+                       <h3>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur sequi quo dolor, dignissimos distinctio nostrum quas, aspernatur aperiam optio illo, voluptatem voluptate deleniti dicta voluptates. Dolore ab quidem unde expedita."</h3>
+                   </div>
+                </div>
+                <div class="coluna_quarto">
+                    <div class="depoimento_image">
+                      <img src="imagens/5.jpeg" alt="Depoimentos" class="image"> 
+                   </div>
+                    <div class="center">
+                       <h3>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque voluptas dolore deserunt maiores rerum neque repellendus fugit quae facere nam atque amet saepe, dolorem possimus assumenda quia molestias corrupti, quo?"</h3>
+                   </div>
+                </div>
+                <div class="coluna_quarto">
+                    <div class="depoimento_image">
+                      <img src="imagens/3.jpeg" alt="Depoimentos" class="image"> 
+                   </div>
+                    <div class="center">
+                       <h3>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est esse nobis facilis veritatis rem! Quisquam dignissimos, in doloribus, ducimus accusantium unde, ex at odio earum placeat corporis voluptatem, magnam asperiores."</h3>
+                   </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>        
+        <section id="contato" class="clear">
+            <div class="content">
+               <div class="form-contato">
+                    <form>
+                        <h4>Economize com o Economy!</h4>
+                        <p id="message"> </p> 
+                        <input type="text" required name="nome" class="inputText" placeholder="Nome" />
+                        <input type="email" required class="inputText" name="email" placeholder="E-mail" />
+                        <input type="password" required name="senha" class="inputText" placeholder="Senha" />
+                        <input type="submit" id="BtnEnviar" class="botao width-50" value="Cadastrar"/>
+                    </form> 
+                </div>
+            </div>
+        </section>
+       <div id="footer"></div>  
+
+     
+       <!-- SCRIPTS -->
+       <script type="text/javascript" src="javascript/ajaxInit.js"></script>
+       <script type="text/javascript" src="javascript/slider.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.0.js"></script>                                        
+     	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+       <script type="text/javascript" src="javascript/login.js"></script>
+       <script type="text/javascript" src="javascript/getDadosFormulario.js"></script>
+       
+    </body>
+</html>

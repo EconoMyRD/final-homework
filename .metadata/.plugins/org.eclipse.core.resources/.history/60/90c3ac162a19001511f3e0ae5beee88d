@@ -1,0 +1,15 @@
+package br.com.economy.DAO;
+
+import java.text.ParseException;
+
+import br.com.economy.email.Email;
+import br.com.economy.servlet.GetCategory;
+
+
+public class teste {
+	public static void main(String[] args) throws ParseException {
+		CategoriaDao dao =  new CategoriaDao();
+		String str = dao.getCategories();
+		System.out.println(str);	
+	}
+}
