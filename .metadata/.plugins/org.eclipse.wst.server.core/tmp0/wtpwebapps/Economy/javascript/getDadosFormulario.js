@@ -1,81 +1,110 @@
 
+var GetDadosFormulario = {
+    init: function () {
+    	//debugger;
+        GetDadosFormulario.setForm();
+    },
 
-var GetDadosFormulario = 
-{
-		init: function()
+    setForm: function () {
+    	//debugger;
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+
+            var cliente = GetDadosFormulario.getDados(form);
+            GetDadosFormulario.saveDados(cliente, form);
+
+            event.preventDefault();
+        });
+    },
+
+    getDados: function (form) {
+    	//debugger;
+        var
+            cliente = {
+                nome: form.nome.value,
+                email: form.email.value,
+                senha: form.senha.value
+            };
+
+        return cliente;
+    },
+
+    saveDados: function (cliente, form) {
+    	//debugger;
+        $.ajax({
+            url: 'servletCliente',
+            data: cliente,
+
+            success: function (result) {
+            	if(result == 1)
+            	{
+            		GetDadosFormulario.clearMessage();
+            		GetDadosFormulario.sendEmail(cliente);
+            	}
+            	else
+            		{
+	            		GetDadosFormulario.clearMessage();
+	            		GetDadosFormulario.showMessage();
+            		}
+            },
+            error: function () {
+                alert("Error save");
+            }
+        });
+    },
+
+    sendEmail: function (form) {
+    	//debugger;
+    	
+    	var	cliente =
 		{
-			GetDadosFormulario.setForm();
-		},
-		
-		setForm: function()
-		{
-			var form = document.querySelector('form');
-			form.addEventListener('submit', function(event)
-			{
-				var cliente = GetDadosFormulario.getDados(form);
-				GetDadosFormulario.saveDados(cliente, form);
-				
-				event.preventDefault();
-			});
-		},
-		
-		
-		showMessage: function() {
-			var message = document.getElementById("message");
-			message.innerHTML = 'Este email j· foi utilizado em outra conta!';
-		},
-		
-		
-		sendEmail: function(form) {
-			var	cliente =
-			{
-				nome: form.nome.value,
-				email: form.email.value,
-				senha: form.senha.value
-			};
-			var ajax = ajaxInit();
-			var  url = 'http://www.economy.zz.mu/servletEmail?name=' + cliente.nome + 
-				'&email=' + cliente.email + '&password=' + cliente.senha;
-			ajax.open('GET', url, true);
-			ajax.send();
-			
-		},
-		
-		
-		getDados: function(form)
-		{
-			var
-				cliente =
-				{
-					nome: form.nome.value,
-					email: form.email.value,
-					senha: form.senha.value
-				};
-				
-			return cliente;
-			
-		},
-		
-		saveDados: function(cliente,form)
-		{
-			var ajax = ajaxInit(),
-				url = 'http://www.economy.zz.mu/servletCliente?nome=' + cliente.nome + 
-					'&email=' + cliente.email +'&senha=' + cliente.senha;
-			ajax.open('GET',url, true);
-			ajax.send();
-			ajax.onreadystatechange= function() {
-				if(ajax.readyState == 4 && ajax.status == 200){
-					var confirm = ajax.responseText;
-					if(confirm == '1'){
-						GetDadosFormulario.sendEmail(form);					
-					}
-					else{
-						GetDadosFormulario.showMessage();
-					}
-				}
-				
-			};
-		}
+			nome: form.nome.value,
+			email: form.email.value,
+			senha: form.senha.value
+		};
+    	
+        $.ajax({
+            url: 'servletEmail',
+            data: cliente,
+
+            success: function (result) {
+            	GetDadosFormulario.clearMessage();
+                GetDadosFormulario.showMessageOK();
+            },
+            error: function () {
+                alert("Error email");
+            }
+        });
+
+        GetDadosFormulario.clearForm(form);
+    },
+
+
+    showMessage: function () {
+    	//debugger;
+        var message = document.getElementById("message");
+        message.innerHTML = 'Este email j√° foi utilizado em outra conta!';
+    },
+
+
+    showMessageOK: function () {
+    	//debugger;
+        var message = document.getElementById("messageOK");
+        message.innerHTML = 'Acesse seu e-mail e confirme o cadastro';
+    },
+    
+    clearMessage: function()
+    {
+    	document.getElementById("message").innerHTML = "";
+    	document.getElementById("messageOK").innerHTML = "";
+    },
+
+    clearForm: function (form) {
+    	//debugger;
+        form.nome.value = "";
+        form.email.value = "";
+        form.senha.value = "";
+    }
 };
 
 

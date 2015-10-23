@@ -6,7 +6,8 @@ var novoLancamento = {
     
     setForm: function(){
         document.getElementById('category').addEventListener('load',novoLancamento.getCategories());
-        document.getElementById('category').addEventListener('change',novoLancamento.changeSubcategory);
+        //document.getElementById('category').addEventListener('change',novoLancamento.changeSubcategory);
+        $('#category').change(novoLancamento.changeSubcategory);
         document.getElementById('submit').addEventListener('click', novoLancamento.getValues);
     },
 
@@ -29,7 +30,7 @@ var novoLancamento = {
      getSubcategories: function(select){    
         var ajax = ajaxInit();
         if (ajax){
-            var url= 'http://www.economy.zz.mu/getSubcategories?select=' + select;
+            var url= FactoryConnection.getConnection() + '/getSubcategories?select=' + select;
             ajax.open('GET', url, true);
             ajax.send();
         }
@@ -71,7 +72,7 @@ var novoLancamento = {
     saveOnDataBase: function(description,value, subcategory,date, selectedCategory){
         var ajax= ajaxInit();
         if(ajax){
-            var url='http://www.economy.zz.mu/servlet?description='+description + '&value=' + value +  '&subcategory=' + subcategory + '&date_transaction=' + date + '&category=' + selectedCategory;   
+            var url = FactoryConnection.getConnection() +'/servlet?description='+description + '&value=' + value +  '&subcategory=' + subcategory + '&date_transaction=' + date + '&category=' + selectedCategory;   
 
             ajax.open('GET', url, true);
             ajax.send();
@@ -100,7 +101,7 @@ var novoLancamento = {
 	
 	getCategories: function(){
 	    var ajax = ajaxInit();
-	    var url = 'http://www.economy.zz.mu/ServletCategory';
+	    var url = FactoryConnection.getConnection() + '/ServletCategory';
 	    ajax.open('GET', url, true);
 	    ajax.send();
 	

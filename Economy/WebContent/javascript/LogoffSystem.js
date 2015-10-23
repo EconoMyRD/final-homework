@@ -17,14 +17,14 @@ var logoffSystem =
     exitSession: function()
     {
        var ajax = ajaxInit(),
-			url = 'http://www.economy.zz.mu/logoff';
+			url = FactoryConnection.getConnection() + '/logoff';
 		ajax.open('GET', url, true);
 		ajax.send();
 		ajax.onreadystatechange = function() 
         {
 			if(ajax.readyState==4 && ajax.status==200)
             {
-				window.location.href= 'http://www.economy.zz.mu/index.html';		
+				window.location.href= FactoryConnection.getConnection() + '/index.html';		
 			}
 		}; 
     }

@@ -3,13 +3,13 @@ var loginSystem = {
 	
 	init: function()
 	{
-		debugger;
+		//debugger;
 		loginSystem.setForm();
 	},
 	
 	setForm: function()
 	{
-		debugger;
+		//debugger;
 		var form = document.getElementById('loginSystem');
 		form.addEventListener('submit', function(event){
 			loginSystem.getCredentials(form);
@@ -19,7 +19,7 @@ var loginSystem = {
 	
 	getCredentials: function(form) 
 	{
-		debugger;
+		//debugger;
 		var credentials = {
 				email: form.user.value,
 				password: form.password.value
@@ -30,7 +30,7 @@ var loginSystem = {
 	
 	sendCredentials: function(credentials) 
 	{
-		debugger;		
+		//debugger;		
 		 $.ajax({
 	            url: 'login',
 	            data: credentials,
@@ -47,7 +47,7 @@ var loginSystem = {
 	
 	verifyActive: function(active) 
 	{
-		debugger;
+		//debugger;
 		var message = document.getElementById("messageLogin");
 		message.innerHTML = '';
 		
@@ -61,7 +61,7 @@ var loginSystem = {
 			message.innerHTML = 'Senha incorreta';
 		}
 		else{
-			window.location.href= 'http://localhost:8080/Economy/html/indexGerencial.html';
+			window.location.href= FactoryConnection.getConnection() + '/html/indexGerencial.html';
 		}
 	}
 	

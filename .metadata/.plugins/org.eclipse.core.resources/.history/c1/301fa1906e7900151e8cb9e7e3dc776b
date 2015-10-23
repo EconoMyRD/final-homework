@@ -1,0 +1,154 @@
+var MakeGraphic = {
+		
+		
+		connection: FactoryConnection.getConnection(),
+		
+		getDataForGraphic: function(dateS, dateE, cat) {
+		$.ajax({
+			url: MakeGraphic.connection + '/ServletRelatory',
+			
+			data:{ dateStart: dateS , dateEnd: dateE, category: cat},
+			
+			success: function(jsonString){
+				alert(jsonString);
+				var json = JSON.parse(jsonString);
+				alert(JSON.stringify(json));
+//			    var jsonForGraphic = json[0];
+//			    var jsonForTable = json[1];
+				
+			  
+			    MakeGraphic.drawChart(json);
+			}
+			
+		});
+		
+		
+	},
+	
+	 getData: function(json){
+        var list = [];
+        for(var i =0;i<Object.keys(json).length; i++){
+        	alert(json[i].y);
+            list.push(json[i].y);
+           
+        }
+        alert(list);
+       return list; 
+       
+    },
+    
+    
+     getCategory: function(json){
+        var list = [];
+        for(var i =0;i<Object.keys(json).length; i++){
+            list.push(json[i].name);
+           alert(json[i].name);
+        }
+        alert(list);
+        return list; 
+    },
+	
+    
+    
+    drawChart: function(json) {    
+        // Create the chart
+        $('#chart_div').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Relatório de Gastos'
+            },
+            subtitle: {
+                text: 'Clique nas colunas para ver detalhes'
+            },
+            xAxis: {
+                type: 'category',
+                categories : MakeGraphic.getCategory(json)
+            },
+            yAxis: {
+                title: {
+                    text: 'Total percent market share'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                alert('Category: ' + this.category + ', value: ' + this.y);
+                            }
+                        }
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+
+            series: [{
+                name: "Brands",
+                colorByPoint: true,
+                data: MakeGraphic.getData(json)
+            }],
+
+
+            });
+    },
+    
+    
+
+
+
+    drawDetailedChart: function(ajax,options) {
+        var jsonString = ajax.responseText;
+        var json = JSON.parse(jsonString);
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'date');
+        data.addColumn('number', 'valor');
+        for (var i = 0; i < json.length; i++) {
+            data.addRow([ MakeGraphic.formatDate(json[i].date), json[i].value ]);
+        };
+
+        var chartDetailed = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chartDetailed.draw(data, options);
+    },
+
+
+    getDataForDetailedGraphic: function(dateS, dateE, subcategory) {
+
+    	
+        var ajax = ajaxInit();
+        if (ajax) {
+            var url = 'http://localhost:8080/Economy/ServletDetailedGraphic?dateStart='
+                    + dateS + '&dateEnd=' + dateE + '&subcategory=' + subcategory;
+            ajax.open('GET', url, true);
+            ajax.send();
+        }
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                var options = MakeGraphic.getDetailedOptions(subcategory);
+ 
+                MakeGraphic.drawDetailedChart(ajax,options);
+            }
+        };
+    },
+
+        
+    
+    
+     formatDate: function(input){
+        var p = input.split(/\D/g);
+        var result = [p[2],p[1],p[0]].join("/");   
+
+        return result;
+    }
+};

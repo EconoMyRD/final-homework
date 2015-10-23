@@ -318,6 +318,22 @@ input[type=date], select
     margin: 0 auto;
 }
 /*********************************************INTERNAS****************************************************/
+#message, #messageLogin
+{
+	color : red;
+}
+#chart_div
+{
+    display: inline-block;
+    width: 600px;
+    margin-left: 250px;
+}
+#total
+{
+    
+	font-size: 25px;
+	display: inline-block;
+}
 .coluna-meio
 {
     float: left;

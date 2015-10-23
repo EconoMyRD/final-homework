@@ -87,4 +87,13 @@
     <servlet-name>ServletLogoff</servlet-name>
     <url-pattern>/logoff</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ServletTotal</servlet-name>
+    <servlet-class>br.com.economy.servlet.ServletTotal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletTotal</servlet-name>
+    <url-pattern>/getTotal</url-pattern>
+  </servlet-mapping>
 </web-app>

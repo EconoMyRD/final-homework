@@ -8,10 +8,9 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"></property>
-			
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres5636-Economy.jelastic.under.com.br/economy"></property>
-			<property name="javax.persistence.jdbc.user" value="webadmin"></property>
-			<property name="javax.persistence.jdbc.password" value="OFGvfs26020"></property>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/economy"></property>
+			<property name="javax.persistence.jdbc.user" value="postgres"></property>
+			<property name="javax.persistence.jdbc.password" value="postgres"></property>
 		</properties>
 	</persistence-unit>
 </persistence>

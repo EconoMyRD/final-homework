@@ -1,26 +1,27 @@
 $("iframe").hide();
 
 /*Login Menu*/
-$("#logar").live('click', function () 
+$("#logar").click(function () 
 {
     $("#div-logar").hide();
     $("#div-logar").fadeIn('slow');
 });
 
 
-/*Carregar Menu para outras páginas*/
+/*Carregar Menu para outras p�ginas*/
 
 $(document).ready(function()
 {  
     $("#header").load("html/header.html");  
-    $("#footer").load("html/footer.html");
-    $("#footerGerencial").load("footer.html");
-    $("#lancamentos").load("lancamento.html");
-    $("#headerGerencial").load("headerGerencial.html");
+  //  $("#footer").load("html/footer.html");
+  //  $("#footerGerencial").load("footer.html");
+ //   $("#lancamentos").load("lancamento.html");
+ //   $("#headerGerencial").load("headerGerencial.html");
 }); 
 
 
-/*Carregar páginas com o clique*/
+/*Carregar p�ginas com o clique*/
+/*
 $(document).ready(function() 
 {
     $('.menu-interno').click(function() 
@@ -30,4 +31,4 @@ $(document).ready(function()
         return false;
     });    
 });
-
+*/

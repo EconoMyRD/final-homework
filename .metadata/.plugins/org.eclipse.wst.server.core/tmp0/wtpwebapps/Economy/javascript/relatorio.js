@@ -6,6 +6,26 @@ var Relatorio = {
         
     },
     
+    
+    total: function(){
+    	var ajax = ajaxInit();
+    	var url= FactoryConnection.getConnection() + '/getTotal';
+    	ajax.open('GET', url, true);
+    	ajax.send();
+    	ajax.onreadystatechange= function(){
+    		if (ajax.readyState==4 && ajax.status==200){
+    			var total = ajax.responseText;
+    			Relatorio.showTotal(total);
+    		}
+    	};
+    },
+    
+    
+    showTotal: function(total){
+    	var field = document.getElementById('total');
+    	field.innerHTML = 'Saldo : ' + total;
+    },
+    
    
     getRelatory: function(event) {
         event.preventDefault();
@@ -19,6 +39,7 @@ var Relatorio = {
         var dateEnd =  Relatorio.formatDate(dateE);
 
         MakeGraphic.getDataForGraphic(dateStart, dateEnd, category);
+        Relatorio.total();
     },
 
     
@@ -46,7 +67,7 @@ var Relatorio = {
         
 	getCategories: function(){
 	    var ajax = ajaxInit();
-	    var url = 'http://www.economy.zz.mu/ServletCategory';
+	    var url = FactoryConnection.getConnection() + '/ServletCategory';
 	    ajax.open('GET', url, true);
 	    ajax.send();
 	

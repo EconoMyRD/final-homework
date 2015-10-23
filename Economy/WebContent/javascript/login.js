@@ -1,14 +1,14 @@
 $("iframe").hide();
 
 /*Login Menu*/
-$("#logar").live('click', function () 
+$("#logar").click(function () 
 {
     $("#div-logar").hide();
     $("#div-logar").fadeIn('slow');
 });
 
 
-/*Carregar Menu para outras páginas*/
+/*Carregar Menu para outras pï¿½ginas*/
 
 $(document).ready(function()
 {  
@@ -20,7 +20,7 @@ $(document).ready(function()
 }); 
 
 
-/*Carregar páginas com o clique*/
+/*Carregar pï¿½ginas com o clique*/
 /*
 $(document).ready(function() 
 {

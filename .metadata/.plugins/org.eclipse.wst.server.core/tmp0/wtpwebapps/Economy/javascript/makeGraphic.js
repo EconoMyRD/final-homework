@@ -1,111 +1,190 @@
 var MakeGraphic = {
-
-    getDataForGraphic: function(dateStart, dateEnd, category) {
-        var ajax = ajaxInit();
-        if (ajax) {
-            var url = 'http://www.economy.zz.mu/ServletRelatory?dateStart='
-                    + dateStart + '&dateEnd=' + dateEnd + '&category=' + category;
-            ajax.open('GET', url, true);
-            ajax.send();
+		
+		
+		connection: FactoryConnection.getConnection(),
+		
+		getDataForGraphic: function(dateS, dateE, cat) {
+		$.ajax({
+			url: MakeGraphic.connection + '/ServletRelatory',
+			
+			data:{ dateStart: dateS , dateEnd: dateE, category: cat},
+			
+			success: function(jsonString){
+				alert(jsonString);
+				var json = JSON.parse(jsonString);
+				alert(JSON.stringify(json));
+//			    var jsonForGraphic = json[0];
+//			    var jsonForTable = json[1];
+				
+			  
+			    MakeGraphic.drawChart(json);
+			}
+			
+		});
+		
+		
+	},
+	
+	 getData: function(json){
+        var list = [];
+        for(var i =0;i<Object.keys(json).length; i++){
+        	//alert(json[i].y);
+            list.push(json[i].value);
+           
         }
-        ajax.onreadystatechange = function() {
-            if (ajax.readyState == 4 && ajax.status == 200) {
-                
-                var options = MakeGraphic.getOptions();
-                MakeGraphic.makeGraphic(ajax, options);
-            }
-        };
+        alert('data : ' +list.toString());
+       return list; 
+       
     },
-
-
-    getOptions: function() {
-        var options = {
-                'width' : 450,
-                'height' : 450,
-                'title' : 'movimentacoes'
-            };
-        return options;
+    
+    
+     getCategory: function(json){
+        var list = [];
+        for(var i =0;i<Object.keys(json).length; i++){
+            list.push(json[i].name);
+           //alert(json[i].name);
+        }
+        alert('categories: ' + list.toString());
+        return list; 
     },
+	
+    
+    
+    drawChart: function(json) {    
+        // Create the chart
+        $('#chart_div').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Relatório de Gastos'
+            },
+            subtitle: {
+                text: 'Clique nas colunas para ver detalhes'
+            },
+            xAxis: {
+                type: 'category',
+                categories : MakeGraphic.getCategory(json)
+            },
+            yAxis: {
+                title: {
+                    text: 'Gasto Total'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                alert('Category: ' + this.category + ', value: ' + this.y);
+                                //MakeGraphic.getDataForDetailedGraphic(this.category);
+                            }
+                        }
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+
+            series: [{
+                name: "Brands",
+                colorByPoint: true,
+                data: MakeGraphic.getData(json)
+            }],
 
 
-    makeGraphic: function(ajax, options) {
-        google.setOnLoadCallback(MakeGraphic.drawChart(ajax, options));
+            });
     },
+    
+    
 
-
-    drawChart: function(ajax,options) {
-        var jsonString = ajax.responseText;
-        var json = JSON.parse(jsonString);
-
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'categoria');
-        data.addColumn('number', 'valor');
-        for (var i = 0; i < json.length; i++) {
-            data.addRow([ json[i].name, json[i].value ]);
-        };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-
-        google.visualization.events.addListener(chart, 'select', function(){
-    		var selectedItem = chart.getSelection()[0];
-    		var selected = data.getValue(selectedItem.row, 0);
-    		
-    		var dateS = document.getElementById('dateStart').value;
-    		var dateE = document.getElementById('dateEnd').value;
-    		
-    		var ds = new Date(dateS);
-    		var de = new Date(dateE);
-    		var dateStart = ds.getTime();
-    		var dateEnd = de.getTime();
-    		MakeGraphic.getDataForDetailedGraphic(dateStart, dateEnd, selected);
-        });       	
-        chart.draw(data, options);
-    },
 
 
     drawDetailedChart: function(ajax,options) {
         var jsonString = ajax.responseText;
         var json = JSON.parse(jsonString);
+        
+        //TODO get the data to put it in the chart (getCategory and getData
+        
+        $('#chart_div').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Relatório de Gastos'
+            },
+            subtitle: {
+                text: 'Clique nas colunas para ver detalhes'
+            },
+            xAxis: {
+                type: 'category',
+                categories : MakeGraphic.getCategory(json)
+            },
+            yAxis: {
+                title: {
+                    text: 'Gasto Total'
+                }
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'date');
-        data.addColumn('number', 'valor');
-        for (var i = 0; i < json.length; i++) {
-            data.addRow([ MakeGraphic.formatDate(json[i].date), json[i].value ]);
-        };
+            },
+            legend: {
+                enabled: false
+            },
+//            plotOptions: {
+//                series: {
+//                    cursor: 'pointer',
+//                    point: {
+//                        events: {
+//                            click: function () {
+//                                alert('Category: ' + this.category + ', value: ' + this.y);
+//                                //MakeGraphic.getDataForDetailedGraphic(this.category);
+//                            }
+//                        }
+//                    }
+//                }
+//            },
 
-        var chartDetailed = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chartDetailed.draw(data, options);
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+
+            series: [{
+                name: "Brands",
+                colorByPoint: true,
+                data: MakeGraphic.getData(json)
+            }],
+
+
+            });
     },
 
 
-    getDataForDetailedGraphic: function(dateS, dateE, subcategory) {
-
+    getDataForDetailedGraphic: function(subcategory) {
+    	//TODO get dateStart and dateEnd for this
         var ajax = ajaxInit();
         if (ajax) {
-            var url = 'http://www.economy.zz.mu/ServletDetailedGraphic?dateStart='
+            var url = 'http://localhost:8080/Economy/ServletDetailedGraphic?dateStart='
                     + dateS + '&dateEnd=' + dateE + '&subcategory=' + subcategory;
             ajax.open('GET', url, true);
             ajax.send();
         }
         ajax.onreadystatechange = function() {
             if (ajax.readyState == 4 && ajax.status == 200) {
-                var options = MakeGraphic.getDetailedOptions(subcategory);
- 
-                MakeGraphic.drawDetailedChart(ajax,options);
+                MakeGraphic.drawDetailedChart(ajax);
             }
         };
     },
 
         
-    getDetailedOptions: function(subcategory){
-        var options = {
-                'width' : 600,
-                'height' : 500,
-                'title' : subcategory
-        };
-        return options;
-    },
+    
     
      formatDate: function(input){
         var p = input.split(/\D/g);
