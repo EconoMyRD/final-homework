@@ -43,7 +43,6 @@ var MakeGraphic = {
     
     drawChart: function(json) {    
         // Create the chart
-    	alert(json);
         $('#chart_div').highcharts({
             chart: {
                 type: 'column'
@@ -178,9 +177,14 @@ var MakeGraphic = {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 var jsonString = ajax.responseText;
                 var json = JSON.parse(jsonString);
-                MakeGraphic.drawDetailedChart(json);
-                w2ui['table'].refresh();
-                MakeGraphic.createTable(json);
+                
+                var jsonGraphic = JSON.parse(json[0]);
+				var jsonTable = JSON.parse(json[1]);
+				
+                MakeGraphic.drawDetailedChart(jsonGraphic);
+                MakeGraphic.createTable(jsonTable);
+                
+                
             }
         };
     },
@@ -197,7 +201,7 @@ var MakeGraphic = {
     getDataForTable: function(json) {    	
     	var records = [];
         for (var j in json) {
-            records.push({recid: j, categoria: json[j].category, descricao: json[j].description , valor: json[j].value, data: json[j].date });
+            records.push({recid: j, categoria: json[j].nameCat, descricao: json[j].description , valor: json[j].value, data: new Date(json[j].date).toLocaleString().split(" ")[0] });
         }
        return records;
 	},
@@ -214,21 +218,20 @@ var MakeGraphic = {
 	            show: { 
 	                toolbar: true,
 	                footer: true,
-	                toolbarAdd: true,
-	                toolbarDelete: true,
-	                toolbarSave: true,
-	                toolbarEdit: true
+//	                toolbarAdd: true,
+//	                toolbarDelete: true,
+//	                toolbarSave: true,
+//	                toolbarEdit: true
 	            },
 	            searches: [                
-	                { field: 'lname', caption: 'Last Name', type: 'text' },
-	                { field: 'fname', caption: 'First Name', type: 'text' },
-	                { field: 'email', caption: 'Email', type: 'text' },
-	                { field: 'sdate', caption: 'Start Date', type: 'Date' }
+	                { field: 'categoria', caption: 'categoria', type: 'text' },
+	                { field: 'descricao', caption: 'descricão', type: 'text' },
+	                { field: 'data', caption: 'data', type: 'date' },
 	            ],
 	            columns: [                
-	                { field: 'recid', caption: 'ID', size: '10%', sortable: true, attr: 'align=center' },
+	                { field: 'recid', caption: 'ID', size: '5%', sortable: true, attr: 'align=center' },
 	                { field: 'categoria', caption: 'categoria', size: '20%', sortable: true },
-	                { field: 'descricao', caption: 'descricao', size: '30%', sortable: true },
+	                { field: 'descricao', caption: 'descricão', size: '35%', sortable: true },
 	                { field: 'valor', caption: 'valor', size: '20%', sortable: true },
 	                { field: 'data', caption: 'data', size: '20%', sortable: true },
 	            ],
@@ -246,6 +249,7 @@ var MakeGraphic = {
 	            },
 	            records: [   ]
 	        });
+	        w2ui['table'].clear();
 	        w2ui['table'].add(MakeGraphic.getDataForTable(json));
 	        
 	    });

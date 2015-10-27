@@ -1,6 +1,8 @@
 package br.com.economy.DAO;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,16 +87,17 @@ EntityManager em = HibernateUtil.getEntityManager();
 		List<ModelDataTable> dataTable = new ArrayList<ModelDataTable>();
 		
 		list = query.getResultList();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		for (int i =0 ;i< list.size(); i++) {
 			float value = Float.parseFloat(list.get(i)[0].toString());
 			String name = list.get(i)[1].toString();
 			String nameCat = list.get(i)[2].toString();
 			String description = list.get(i)[3].toString();
-			Date date = (Date) list.get(i)[4];
+			String date = list.get(i)[4].toString();
 			int subcategory = Integer.parseInt(list.get(i)[5].toString());
 			int cat = Integer.parseInt(list.get(i)[6].toString());
-
+			
 			ModelDataTable model = new ModelDataTable(value,name,subcategory,cat,date,description,nameCat);
 			
 			dataTable.add(model);
@@ -146,6 +149,47 @@ EntityManager em = HibernateUtil.getEntityManager();
 		System.out.println(json);
 		return json;
 	}
+	
+	
+	public String getDataForDetailedTable(Date dateStart, Date dateEnd, String subcategory, int user) {
+		Query query = em.createNativeQuery("select  t.valor as value, s.nome as name, c.nome as nameCat,"
+				+ " t.descricao as description, t.data_transacao as date,	s.subcategoria_id as subcategory, "
+				+ " s.categoria_id as category from transacao t	join subcategoria s on t.subcategoria = s.subcategoria_id "
+				+ " join usuario u on t.usuario = u.usuario_id join categoria c	on c.categoria_id = s.categoria_id	"
+				+ " where s.nome = ? and u.usuario_id = ?	and t.data_transacao between ? and ? ");
+		
+		query.setParameter(1, subcategory);
+		query.setParameter(2, user);
+		query.setParameter(3, dateStart);
+		query.setParameter(4, dateEnd);
+		
+		List<Object[]> list = new ArrayList<Object[]>();
+		list = query.getResultList();
+		
+		List<ModelDataTable> dataTable = new ArrayList<ModelDataTable>();
+		
+		list = query.getResultList();
+		SimpleDateFormat sdf  = new SimpleDateFormat("dd/MM/yyyy");
+		
+		for (int i =0 ;i< list.size(); i++) {
+			float value = Float.parseFloat(list.get(i)[0].toString());
+			String name = list.get(i)[1].toString();
+			String nameCat = list.get(i)[2].toString();
+			String description = list.get(i)[3].toString();
+			String date = list.get(i)[4].toString();
+			int subcat = Integer.parseInt(list.get(i)[5].toString());
+			int cat = Integer.parseInt(list.get(i)[6].toString());
+			
+			ModelDataTable model = new ModelDataTable(value,name,subcat,cat,date,description,nameCat);
+			
+			dataTable.add(model);
+		}
+		
+		Gson gson = new  Gson();
+		String json = gson.toJson(dataTable);
+		System.out.println(json.toString());
+		return json;
+	}
 		
 		
 	public void Insert(Transacao transacao)
@@ -187,6 +231,8 @@ EntityManager em = HibernateUtil.getEntityManager();
 			return false;			
 		}
 	}
+
+	
 }
 
 

@@ -1,18 +1,16 @@
 package br.com.economy.model;
 
-import java.util.Date;
-
 public class ModelDataTable {
 	private float value;
 	private String name;
 	private int subcategory;
 	private int category;
-	private Date date;
+	private String date;
 	private String description;
 	private String nameCat;
 	
 	
-	public ModelDataTable(float value, String name, int subcategory, int categoria, Date date, String description,
+	public ModelDataTable(float value, String name, int subcategory, int categoria, String date, String description,
 			String nameCat) {
 		super();
 		this.value = value;
@@ -24,11 +22,11 @@ public class ModelDataTable {
 		this.nameCat = nameCat;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

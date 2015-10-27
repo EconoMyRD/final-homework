@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import br.com.economy.DAO.TransactionDAO;
 
@@ -46,19 +50,23 @@ public class ServletDetailedGraphic extends HttpServlet {
 		
 		SimpleDateFormat sdf = new  SimpleDateFormat("dd/MM/yyyy");
 		subcategory = request.getParameter("subcategory");
-//		long ds =Long.parseLong(request.getParameter("dateStart"));
-//		dateStart.setTime(ds);
-//		long de = Long.parseLong(request.getParameter("dateEnd"));
-//		dateEnd.setTime(de);
 		try {
 			dateStart = sdf.parse(request.getParameter("dateStart"));
 			dateEnd = sdf.parse(request.getParameter("dateEnd"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		String json = DAO.getDataForDetailedGraphic(dateStart, dateEnd, subcategory, userId);
+		String jsonGraphic = DAO.getDataForDetailedGraphic(dateStart, dateEnd, subcategory, userId);
+		
+		String jsonTable = DAO.getDataForDetailedTable(dateStart, dateEnd, subcategory, userId);
+		
+		List<String> list = new ArrayList<String>();
+		list.add(jsonGraphic);
+		list.add(jsonTable);
+		
+		Gson gson =  new Gson();
+		String json = gson.toJson(list);
 		out.write(json);
 	}
 
