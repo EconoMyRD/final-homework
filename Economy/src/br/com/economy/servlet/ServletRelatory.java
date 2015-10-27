@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import br.com.economy.DAO.TransactionDAO;
 
@@ -56,7 +60,16 @@ public class ServletRelatory extends HttpServlet {
 //		System.out.println(category);
 		System.out.println(dateStart);
 		System.out.println(dateEnd);
-		String json = DAO.getDataForGraphic(dateStart, dateEnd, category, userId);
+		String jsonGraphic = DAO.getDataForGraphic(dateStart, dateEnd, category, userId);
+		
+		String jsonTable = DAO.getDataForTable(dateStart, dateEnd, category, userId);
+		
+		Gson gson = new Gson();
+		List<String> list = new  ArrayList<String>();
+		list.add(jsonGraphic);
+		list.add(jsonTable);
+		
+		String json = gson.toJson(list);
 		out.write(json);
 	}
 

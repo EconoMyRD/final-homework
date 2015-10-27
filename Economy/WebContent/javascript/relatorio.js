@@ -64,7 +64,7 @@ var Relatorio = {
         field.innerHTML = html;
         
     },
-        
+       
 	getCategories: function(){
 	    var ajax = ajaxInit();
 	    var url = FactoryConnection.getConnection() + '/ServletCategory';

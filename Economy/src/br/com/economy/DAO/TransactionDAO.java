@@ -8,9 +8,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.economy.entities.ModelDetailedGraphic;
-import br.com.economy.entities.ModelQuery;
 import br.com.economy.entities.Transacao;
+import br.com.economy.model.ModelDataTable;
+import br.com.economy.model.ModelDetailedGraphic;
+import br.com.economy.model.ModelQuery;
 import br.com.economy.util.HibernateUtil;
 
 import com.google.gson.Gson;
@@ -65,10 +66,51 @@ EntityManager em = HibernateUtil.getEntityManager();
 		return json;
 	}
 	
+	public String getDataForTable(Date dateStart, Date dateEnd, int category, int user){
+		Query query = em.createNativeQuery("select  sum(t.valor) as value, s.nome as name, c.nome as nameCat,"
+				+ " t.descricao as description, t.data_transacao as date,	s.subcategoria_id as subcategory, "
+				+ " s.categoria_id as category from transacao t	join subcategoria s on t.subcategoria = s.subcategoria_id "
+				+ " join usuario u on t.usuario = u.usuario_id join categoria c	on c.categoria_id = s.categoria_id	"
+				+ " where s.categoria_id = ? and u.usuario_id = ?	and t.data_transacao between ? and ? "
+				+ " group by s.nome, s.subcategoria_id, s.categoria_id, t.data_transacao, t.descricao,c.nome;");
+		
+		query.setParameter(1, category);
+		query.setParameter(2, user);
+		query.setParameter(3, dateStart);
+		query.setParameter(4, dateEnd);
+		
+		List<Object[]> list = new ArrayList<Object[]>();
+		list = query.getResultList();
+		
+		List<ModelDataTable> dataTable = new ArrayList<ModelDataTable>();
+		
+		list = query.getResultList();
+		
+		for (int i =0 ;i< list.size(); i++) {
+			float value = Float.parseFloat(list.get(i)[0].toString());
+			String name = list.get(i)[1].toString();
+			String nameCat = list.get(i)[2].toString();
+			String description = list.get(i)[3].toString();
+			Date date = (Date) list.get(i)[4];
+			int subcategory = Integer.parseInt(list.get(i)[5].toString());
+			int cat = Integer.parseInt(list.get(i)[6].toString());
+
+			ModelDataTable model = new ModelDataTable(value,name,subcategory,cat,date,description,nameCat);
+			
+			dataTable.add(model);
+		}
+		
+		Gson gson = new  Gson();
+		String json = gson.toJson(dataTable);
+		System.out.println(json.toString());
+		return json;
+		
+	}
+	
 	
 	public String getDataForDetailedGraphic(Date dateS, Date dateE, String subcategory, int user){
 		System.out.println( dateS.toString() + dateE.toString() + subcategory);
-		Query query = em.createNativeQuery("select t.valor as value, t.data_transacao as date "
+		Query query = em.createNativeQuery("select t.valor as value, t.data_transacao as date, s.nome as subcategory"
 				+ " from transacao t "
 				+ " join subcategoria s "
 				+ " on t.subcategoria = s.subcategoria_id "
@@ -93,8 +135,9 @@ EntityManager em = HibernateUtil.getEntityManager();
 		for (int i =0 ;i< list.size(); i++) {
 			float value = Float.parseFloat(list.get(i)[0].toString());
 			String dateString= list.get(i)[1].toString();
+			String subcat = list.get(i)[2].toString();
 				
-			ModelDetailedGraphic model = new ModelDetailedGraphic(dateString, value) ;
+			ModelDetailedGraphic model = new ModelDetailedGraphic(dateString, value, subcat) ;
 			modelList.add(model);
 		};		
 		

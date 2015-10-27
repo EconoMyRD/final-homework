@@ -325,8 +325,19 @@ input[type=date], select
 #chart_div
 {
     display: inline-block;
-    width: 600px;
-    margin-left: 250px;
+    width: 47%;
+    margin-right: 70px;
+}
+
+#table{
+	display: inline-block;
+	width: 47%;
+	height:400px;
+	
+}
+#chartTable{
+	width: 100%;
+	margin: 0 auto;
 }
 #total
 {

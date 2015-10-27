@@ -1,14 +1,7 @@
 $("iframe").hide();
 
-/*Login Menu*/
-$("#logar").click(function () 
-{
-    $("#div-logar").hide();
-    $("#div-logar").fadeIn('slow');
-});
 
-
-/*Carregar Menu para outras p�ginas*/
+/*Carregar Menu para outras páginas*/
 
 $(document).ready(function()
 {  
@@ -20,7 +13,10 @@ $(document).ready(function()
 }); 
 
 
-/*Carregar p�ginas com o clique*/
+
+
+
+/*Carregar páginas com o clique*/
 /*
 $(document).ready(function() 
 {

@@ -3,13 +3,19 @@ var loginSystem = {
 	
 	init: function()
 	{
-		//debugger;
 		loginSystem.setForm();
+		
+		/*Login Menu*/
+		$("#logar").on('click', function () 
+		{
+		    $("#div-logar").hide();
+		    $("#div-logar").fadeIn('slow');
+		});
 	},
 	
 	setForm: function()
 	{
-		//debugger;
+		//
 		var form = document.getElementById('loginSystem');
 		form.addEventListener('submit', function(event){
 			loginSystem.getCredentials(form);
@@ -19,7 +25,7 @@ var loginSystem = {
 	
 	getCredentials: function(form) 
 	{
-		//debugger;
+		//
 		var credentials = {
 				email: form.user.value,
 				password: form.password.value
@@ -30,7 +36,7 @@ var loginSystem = {
 	
 	sendCredentials: function(credentials) 
 	{
-		//debugger;		
+		//		
 		 $.ajax({
 	            url: 'login',
 	            data: credentials,
@@ -47,7 +53,7 @@ var loginSystem = {
 	
 	verifyActive: function(active) 
 	{
-		//debugger;
+		//
 		var message = document.getElementById("messageLogin");
 		message.innerHTML = '';
 		

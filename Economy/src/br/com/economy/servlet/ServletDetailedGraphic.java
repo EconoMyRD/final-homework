@@ -2,6 +2,8 @@ package br.com.economy.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -42,12 +44,19 @@ public class ServletDetailedGraphic extends HttpServlet {
 			}
 		}
 		
+		SimpleDateFormat sdf = new  SimpleDateFormat("dd/MM/yyyy");
 		subcategory = request.getParameter("subcategory");
-		long ds =Long.parseLong(request.getParameter("dateStart"));
-		dateStart.setTime(ds);
-		long de = Long.parseLong(request.getParameter("dateEnd"));
-		dateEnd.setTime(de);
-		
+//		long ds =Long.parseLong(request.getParameter("dateStart"));
+//		dateStart.setTime(ds);
+//		long de = Long.parseLong(request.getParameter("dateEnd"));
+//		dateEnd.setTime(de);
+		try {
+			dateStart = sdf.parse(request.getParameter("dateStart"));
+			dateEnd = sdf.parse(request.getParameter("dateEnd"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		String json = DAO.getDataForDetailedGraphic(dateStart, dateEnd, subcategory, userId);
 		out.write(json);
