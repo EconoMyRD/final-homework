@@ -3,6 +3,9 @@
 ### Java ###
 *.class
 
+*.pub
+ssh_key*
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
