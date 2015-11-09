@@ -1,0 +1,23 @@
+package br.com.economy.servlet;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Response;
+
+import br.com.economy.DAO.CategoriaDao;
+
+@Path("/category")
+@ApplicationPath("/a")
+public class GetCategory extends Application{
+       
+	CategoriaDao DAO  = new CategoriaDao();
+
+	@GET
+	public Response getCategory(){
+		String json = DAO.getCategories();		
+		
+		return Response.ok(json).build();
+	}
+}

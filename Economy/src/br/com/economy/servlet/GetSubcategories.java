@@ -1,39 +1,20 @@
 package br.com.economy.servlet;
 
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
 import br.com.economy.DAO.SubCategoryDAO;
 
-
-
-public class GetSubcategories extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Path("/subcategories")
+public class GetSubcategories{
 	
-	private SubCategoryDAO subCategoryDAO = new  SubCategoryDAO();
-    
-    public GetSubcategories() {
-        super();
-        
-    }
+	 SubCategoryDAO subCategoryDAO = new  SubCategoryDAO();
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int category =Integer.parseInt(request.getParameter("select"));
+	@GET
+	public Response getSubcategory(){
+		String json = subCategoryDAO.getSubcategories(1);
 		
-		String subcategories = subCategoryDAO.getSubcategories(category);
-		
-		 PrintWriter out = response.getWriter();
-		 out.write(subcategories);
-		 
+		return Response.ok(json).build();
 	}
-
 }

@@ -100,27 +100,32 @@ var novoLancamento = {
 	
 	
 	getCategories: function(){
-	    var ajax = ajaxInit();
-	    var url = FactoryConnection.getConnection() + '/ServletCategory';
-	    ajax.open('GET', url, true);
-	    ajax.send();
-	
-	    ajax.onreadystatechange = function(){	    	
-	        if (ajax.readyState==4 && ajax.status==200){
-	            var json = ajax.responseText;	            
+//	    var ajax = ajaxInit();
+//	    var url = FactoryConnection.getConnection() + '/ServletCategory';
+//	    ajax.open('GET', url, true);
+//	    ajax.send();
+//	
+//	    ajax.onreadystatechange = function(){	    	
+//	        if (ajax.readyState==4 && ajax.status==200){
+//	            var json = ajax.responseText;	            
+//	            var field = document.getElementById('category');
+//	            var html = novoLancamento.getHTML(json);
+//	            novoLancamento.showHTML(html, field);
+//	            novoLancamento.changeSubcategory();
+//	        }
+		
+		$.ajax({
+			url: FactoryConnection.getConnection() + '/category',
+			method: 'GET',
+			success: function(json) {					            
 	            var field = document.getElementById('category');
 	            var html = novoLancamento.getHTML(json);
 	            novoLancamento.showHTML(html, field);
 	            novoLancamento.changeSubcategory();
-	        }
-		
-	   };
+			}
+		})
     
 	}
-    
-    
-
-
 };
 
 

@@ -1,0 +1,9 @@
+import br.com.economy.DAO.SubCategoryDAO;
+
+public class test {
+	public static void main(String[] args) {
+		SubCategoryDAO dao = new SubCategoryDAO();
+		
+		System.out.println(dao.getSubcategories(1));
+	}
+}

@@ -4,6 +4,7 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  
   <servlet>
     <servlet-name>ServletTransaction</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletTransaction</servlet-class>
@@ -12,14 +13,32 @@
     <servlet-name>ServletTransaction</servlet-name>
     <url-pattern>/servlet</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
-    <servlet-name>GetSubcategories</servlet-name>
-    <servlet-class>br.com.economy.servlet.GetSubcategories</servlet-class>
+	<servlet-name>GetSubcategories</servlet-name> 
+   	<servlet-class>br.com.economy.servlet.GetSubcategories</servlet-class> 
+  </servlet>
+  <servlet-mapping> 
+	     <servlet-name>GetSubcategories</servlet-name> 
+	     <url-pattern>/subcategories</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+    <servlet-name>GetCategory</servlet-name>
+    <servlet-class>br.com.economy.servlet.GetCategory</servlet-class>
+    <init-param>
+	    <param-name>com.sun.jersey.config.property.packages</param-name>
+	    <param-value>br.com.economy.servlet.GetCategory</param-value>
+  	</init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GetSubcategories</servlet-name>
-    <url-pattern>/getSubcategories</url-pattern>
+    <servlet-name>GetCategory</servlet-name>
+    <url-pattern>/category</url-pattern>
   </servlet-mapping>
+  
+ 
+  
   <servlet>
     <servlet-name>ServletRelatory</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletRelatory</servlet-class>
@@ -28,14 +47,9 @@
     <servlet-name>ServletRelatory</servlet-name>
     <url-pattern>/ServletRelatory</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>GetCategory</servlet-name>
-    <servlet-class>br.com.economy.servlet.GetCategory</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GetCategory</servlet-name>
-    <url-pattern>/ServletCategory</url-pattern>
-  </servlet-mapping>
+  
+  
+  
   <servlet>
     <servlet-name>ServletDetailedGraphic</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletDetailedGraphic</servlet-class>

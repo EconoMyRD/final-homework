@@ -29,7 +29,7 @@ public class SubCategoryDAO {
 		
 				
 		
-		//System.out.println("json:" + json);	
+		System.out.println("json:" + json);	
 		
 		return json;
 	}

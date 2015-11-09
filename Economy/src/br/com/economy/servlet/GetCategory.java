@@ -1,32 +1,21 @@
 package br.com.economy.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Application;
 
 import br.com.economy.DAO.CategoriaDao;
 
-
-public class GetCategory extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@ApplicationPath("/category")
+public class GetCategory extends Application{
        
 	CategoriaDao DAO  = new CategoriaDao();
-    
-    public GetCategory() {
-        super();
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		String json = DAO.getCategories();
+	@GET
+	public String getCategory(){
+		String json = DAO.getCategories();		
 		
-		PrintWriter out = response.getWriter();
-		
-		out.write(json);
+		return json;
 	}
 }

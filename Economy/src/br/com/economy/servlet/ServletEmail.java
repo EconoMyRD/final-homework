@@ -28,7 +28,7 @@ public class ServletEmail extends HttpServlet {
 				"\n\nPara ativar sua conta clique no link abaixo."
 				+ "\nVocê pode entrar em sua conta utilizando seu email e sua senha: " + password + 
 				"\n\n http://localhost:8080/Economy/servletActivateUser?email=" + email;
-		//Email sender = new Email();
-		//sender.sendMail("ricardo.jonas.faria@gmail.com", email, "ativação de sua conta Economy", message);
+		Email sender = new Email();
+		sender.sendMail("ricardo.jonas.faria@gmail.com", email, "ativação de sua conta Economy", message);
 	}
 }
