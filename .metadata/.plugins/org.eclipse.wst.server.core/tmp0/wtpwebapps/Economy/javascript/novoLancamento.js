@@ -1,14 +1,15 @@
 var novoLancamento = {
     
+	connection: FactoryConnection.getConnection(),
+	
     init: function(){
         novoLancamento.setForm();
     },
     
     setForm: function(){
-        document.getElementById('category').addEventListener('load',novoLancamento.getCategories());
-        //document.getElementById('category').addEventListener('change',novoLancamento.changeSubcategory);
+        $('#category').on('load',novoLancamento.getCategories());
         $('#category').change(novoLancamento.changeSubcategory);
-        document.getElementById('submit').addEventListener('click', novoLancamento.getValues);
+        $('#submit').on('click', novoLancamento.getValues);
     },
 
     
@@ -19,7 +20,7 @@ var novoLancamento = {
     
     
     getOptionCategory: function(){
-        var category =document.getElementById('category');
+        var category =$('#category');
         var selected = String(category.options[category.selectedIndex].value);
         
         return selected;
@@ -28,32 +29,28 @@ var novoLancamento = {
 
 
      getSubcategories: function(select){    
-        var ajax = ajaxInit();
-        if (ajax){
-            var url= FactoryConnection.getConnection() + '/getSubcategories?select=' + select;
-            ajax.open('GET', url, true);
-            ajax.send();
-        }
-        ajax.onreadystatechange = function(){
-            if (ajax.readyState==4 && ajax.status==200)
-            {
-                var json = ajax.responseText;            
-                var field = document.getElementById('subcategory');
-                var html = novoLancamento.getHTML(json);
-                novoLancamento.showHTML(html, field);
-            }
-            
-        };
+          $.ajax({
+        	  url: novoLancamento.connection + '/resources/category/sub/',
+        	  data: {'select': select},
+        	  method:'GET',
+        	  
+        	  success: function(json) {
+        		  var field = $('#subcategory');
+        		  var html = novoLancamento.getHTML(JSON.stringify(json));
+        		  novoLancamento.showHTML(html, field);
+        	  }
+          });
      },
+        	  
 
     
     getValues: function(){
-        var description = document.getElementById('description').value;
-        var value = document.getElementById('value').value;
-        var subcategory  = document.getElementById('subcategory');
+        var description = $('#description').val();
+        var value = $('#value').val();
+        var subcategory  = $('#subcategory');
         var selectedSub = String(subcategory.options[subcategory.selectedIndex].value);
-        var date = String(document.getElementById('date_transaction').value);  
-        var category = document.getElementById('category');
+        var date = String($('#date_transaction').val());  
+        var category = $('#category');
         var selectedCategory = String(category.options[category.selectedIndex].value);
         formatedDate = novoLancamento.formatDate(date);
         
@@ -70,14 +67,15 @@ var novoLancamento = {
     },
 
     saveOnDataBase: function(description,value, subcategory,date, selectedCategory){
-        var ajax= ajaxInit();
-        if(ajax){
-            var url = FactoryConnection.getConnection() +'/servlet?description='+description + '&value=' + value +  '&subcategory=' + subcategory + '&date_transaction=' + date + '&category=' + selectedCategory;   
-
-            ajax.open('GET', url, true);
-            ajax.send();
-        }
-    },
+        $.ajax({
+        	url:  novoLancamento.connection +'/resources/transaction',
+        	data: {'description' : description , 'value' : value ,  'subcategory' : subcategory ,
+        		'date_transaction' : date , 'category' : selectedCategory},
+        	method: 'POST'
+        	
+        });
+      },
+  
 
     getHTML: function(json){
     	var options = JSON.parse(json);
@@ -100,26 +98,13 @@ var novoLancamento = {
 	
 	
 	getCategories: function(){
-//	    var ajax = ajaxInit();
-//	    var url = FactoryConnection.getConnection() + '/ServletCategory';
-//	    ajax.open('GET', url, true);
-//	    ajax.send();
-//	
-//	    ajax.onreadystatechange = function(){	    	
-//	        if (ajax.readyState==4 && ajax.status==200){
-//	            var json = ajax.responseText;	            
-//	            var field = document.getElementById('category');
-//	            var html = novoLancamento.getHTML(json);
-//	            novoLancamento.showHTML(html, field);
-//	            novoLancamento.changeSubcategory();
-//	        }
 		
 		$.ajax({
-			url: FactoryConnection.getConnection() + '/category',
+			url: novoLancamento.connection + '/resources/category',
 			method: 'GET',
 			success: function(json) {					            
-	            var field = document.getElementById('category');
-	            var html = novoLancamento.getHTML(json);
+	            var field = $('#category');
+	            var html = novoLancamento.getHTML(JSON.stringify(json));
 	            novoLancamento.showHTML(html, field);
 	            novoLancamento.changeSubcategory();
 			}

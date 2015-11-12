@@ -1,12 +1,13 @@
 
 var GetDadosFormulario = {
+	
+	connection: FactoryConnection.getConnection(),
+		
     init: function () {
-    	//debugger;
         GetDadosFormulario.setForm();
     },
 
     setForm: function () {
-    	//debugger;
         var form = document.querySelector('form');
         form.addEventListener('submit', function (event) {
 
@@ -18,7 +19,6 @@ var GetDadosFormulario = {
     },
 
     getDados: function (form) {
-    	//debugger;
         var
             cliente = {
                 nome: form.nome.value,
@@ -30,9 +30,9 @@ var GetDadosFormulario = {
     },
 
     saveDados: function (cliente, form) {
-    	//debugger;
         $.ajax({
-            url: 'servletCliente',
+            url: GetDadosFormulario.connection + '/resources/user/create',
+            method: 'POST',
             data: cliente,
 
             success: function (result) {
@@ -54,7 +54,6 @@ var GetDadosFormulario = {
     },
 
     sendEmail: function (form) {
-    	//debugger;
     	
     	var	cliente =
 		{
@@ -64,7 +63,8 @@ var GetDadosFormulario = {
 		};
     	
         $.ajax({
-            url: 'servletEmail',
+            url: GetDadosFormulario.connection + '/resources/user/sendEmail',
+            method: 'POST',
             data: cliente,
 
             success: function (result) {
@@ -81,14 +81,12 @@ var GetDadosFormulario = {
 
 
     showMessage: function () {
-    	//debugger;
         var message = document.getElementById("message");
         message.innerHTML = 'Este email já foi utilizado em outra conta!';
     },
 
 
     showMessageOK: function () {
-    	//debugger;
         var message = document.getElementById("messageOK");
         message.innerHTML = 'Acesse seu e-mail e confirme o cadastro';
     },
@@ -100,7 +98,6 @@ var GetDadosFormulario = {
     },
 
     clearForm: function (form) {
-    	//debugger;
         form.nome.value = "";
         form.email.value = "";
         form.senha.value = "";

@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+ id="WebApp_ID" version="2.5">
+
+	<display-name>Economy</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>br.com.economy.servlet</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<url-pattern>/resources/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" metadata-complete="true" version="3.0">
   <display-name>Economy</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <servlet-name>ServletTransaction</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletTransaction</servlet-class>
@@ -13,32 +40,29 @@
     <servlet-name>ServletTransaction</servlet-name>
     <url-pattern>/servlet</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
-	<servlet-name>GetSubcategories</servlet-name> 
-   	<servlet-class>br.com.economy.servlet.GetSubcategories</servlet-class> 
+    <servlet-name>GetSubcategories</servlet-name>
+    <servlet-class>br.com.economy.servlet.GetSubcategories</servlet-class>
   </servlet>
-  <servlet-mapping> 
-	     <servlet-name>GetSubcategories</servlet-name> 
-	     <url-pattern>/subcategories</url-pattern>
+  <servlet-mapping>
+    <servlet-name>GetSubcategories</servlet-name>
+    <url-pattern>/subcategories</url-pattern>
   </servlet-mapping>
- 
+  
   <servlet>
     <servlet-name>GetCategory</servlet-name>
     <servlet-class>br.com.economy.servlet.GetCategory</servlet-class>
     <init-param>
-	    <param-name>com.sun.jersey.config.property.packages</param-name>
-	    <param-value>br.com.economy.servlet.GetCategory</param-value>
-  	</init-param>
+        <param-name>jersey.config.server.provider.packages</param-name>
+        <param-value>br.com.economy.servlet</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
+  
   <servlet-mapping>
     <servlet-name>GetCategory</servlet-name>
     <url-pattern>/category</url-pattern>
   </servlet-mapping>
-  
- 
-  
   <servlet>
     <servlet-name>ServletRelatory</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletRelatory</servlet-class>
@@ -47,9 +71,6 @@
     <servlet-name>ServletRelatory</servlet-name>
     <url-pattern>/ServletRelatory</url-pattern>
   </servlet-mapping>
-  
-  
-  
   <servlet>
     <servlet-name>ServletDetailedGraphic</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletDetailedGraphic</servlet-class>
@@ -82,7 +103,6 @@
     <servlet-name>ServletActivateUser</servlet-name>
     <url-pattern>/servletActivateUser</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ServletLogin</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletLogin</servlet-class>
@@ -91,8 +111,6 @@
     <servlet-name>ServletLogin</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>ServletLogoff</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletLogoff</servlet-class>
@@ -101,7 +119,6 @@
     <servlet-name>ServletLogoff</servlet-name>
     <url-pattern>/logoff</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ServletTotal</servlet-name>
     <servlet-class>br.com.economy.servlet.ServletTotal</servlet-class>
@@ -111,3 +128,7 @@
     <url-pattern>/getTotal</url-pattern>
   </servlet-mapping>
 </web-app>
+
+
+-->
+

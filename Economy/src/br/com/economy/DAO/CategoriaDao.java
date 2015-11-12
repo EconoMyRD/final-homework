@@ -31,25 +31,11 @@ public class CategoriaDao
 		Gson gson =  new Gson();
 		String json = gson.toJson(list);
 		
-		//System.out.println(json);
+		System.out.println(json);
 		return json;
 	}
 	
 	
-	public void Insert(Categoria categoria)
-	{
-		em.getTransaction().begin();
-		em.persist(categoria);
-		em.getTransaction().commit();
-	}
-
-	public void Update(Categoria categoria)
-	{
-		em.getTransaction().begin();
-		em.merge(categoria);
-		em.getTransaction().commit();
-	}
-
 	public Categoria GetCategoriaById(Integer idCategoria)
 	{
 		Categoria categoria = em.find(Categoria.class, idCategoria);

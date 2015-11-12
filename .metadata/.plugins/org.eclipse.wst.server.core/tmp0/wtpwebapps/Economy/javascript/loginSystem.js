@@ -1,6 +1,8 @@
 
 var loginSystem = {
 	
+	connection: FactoryConnection.getConnection(),
+	
 	init: function()
 	{
 		loginSystem.setForm();
@@ -25,7 +27,6 @@ var loginSystem = {
 	
 	getCredentials: function(form) 
 	{
-		//
 		var credentials = {
 				email: form.user.value,
 				password: form.password.value
@@ -34,12 +35,12 @@ var loginSystem = {
 		loginSystem.sendCredentials(credentials);
 	},
 	
-	sendCredentials: function(credentials) 
-	{
-		//		
+	sendCredentials: function(credentials){
+		alert(JSON.stringify(credentials));
 		 $.ajax({
-	            url: 'login',
-	            data: credentials,
+	            url: loginSystem.connection + '/resources/user/login/' + credentials.email +'/' + credentials.password,
+	            method: 'GET',
+	            //data: JSON.stringify(credentials),
 
 	            success: function (result) {
 	            	loginSystem.verifyActive(result);
@@ -67,7 +68,7 @@ var loginSystem = {
 			message.innerHTML = 'Senha incorreta';
 		}
 		else{
-			window.location.href= FactoryConnection.getConnection() + '/html/indexGerencial.html';
+			window.location.href= loginSystem.connection  + '/html/indexGerencial.html';
 		}
 	}
 	

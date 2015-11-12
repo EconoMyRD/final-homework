@@ -1,0 +1,6 @@
+package br.com.economy.model;
+
+public class User {
+	String password;
+	
+}

@@ -1,0 +1,31 @@
+package br.com.economy.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+
+import br.com.economy.DAO.UsuarioDao;
+
+
+@Path("/user")
+public class User {
+       
+	UserDao DAO = new UserDao();
+    
+    public User() {
+        super();
+    }
+    
+    @PUT
+	@Path("/active/{email}")
+	protected void activeUser(@PathParam("email") String email){
+		DAO.activateUser(email);
+		("http://localhost:8080/Economy");
+	}
+}

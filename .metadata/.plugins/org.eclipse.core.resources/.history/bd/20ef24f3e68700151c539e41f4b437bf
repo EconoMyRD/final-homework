@@ -1,0 +1,32 @@
+var logoffSystem =
+{
+	
+	init: function()
+    {
+		logoffSystem.setClick();
+	},
+	
+	setClick: function() 
+    {
+		var a = document.getElementById('exit');
+		a.addEventListener('click', function(){
+			logoffSystem.exitSession();		
+		});		
+	},
+    
+    exitSession: function()
+    {
+    	$.ajax({
+    		url : FactoryConnection.getConnection() + '/logout',
+    		method: 'POST',
+    		
+    		success: function() {
+    			window.location.href= FactoryConnection.getConnection() + '/index.html';		
+				
+			}
+    	});
+    }
+};
+
+
+logoffSystem.init();

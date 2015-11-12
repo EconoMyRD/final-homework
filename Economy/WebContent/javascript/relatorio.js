@@ -1,5 +1,7 @@
 var Relatorio = {
 
+	connection: FactoryConnection.getConnection(),
+		
     init: function(){
         document.getElementById('submit').addEventListener('click', Relatorio.getRelatory);
         document.getElementById('category').addEventListener('load', Relatorio.getCategories());
@@ -8,21 +10,19 @@ var Relatorio = {
     
     
     total: function(){
-    	var ajax = ajaxInit();
-    	var url= FactoryConnection.getConnection() + '/getTotal';
-    	ajax.open('GET', url, true);
-    	ajax.send();
-    	ajax.onreadystatechange= function(){
-    		if (ajax.readyState==4 && ajax.status==200){
+    	$.ajax({
+    		url : Relatorio.connection + '/resources/sale',
+    		method:'GET',
+    		success: function() {
     			var total = ajax.responseText;
     			Relatorio.showTotal(total);
     		}
-    	};
+		});
     },
     
     
     showTotal: function(total){
-    	var field = document.getElementById('total');
+    	var field = $('#total');
     	field.innerHTML = 'Saldo : ' + total;
     },
     
@@ -66,25 +66,13 @@ var Relatorio = {
     },
        
 	getCategories: function(){
-//	    var ajax = ajaxInit();
-//	    var url = FactoryConnection.getConnection() + '/ServletCategory';
-//	    ajax.open('GET', url, true);
-//	    ajax.send();
-//	
-//	    ajax.onreadystatechange = function(){
-//	        if (ajax.readyState==4 && ajax.status==200){
-//	            var json = ajax.responseText;
-//	            var field = document.getElementById('category');
-//	            Relatorio.showOptions(json,field);
-//	        }
-//	    };
-//	    
 	    $.ajax({
-			url: FactoryConnection.getConnection() + '/category',
+			url: Relatorio.connection + '/resources/category',
 			method: 'GET',
-			success: function(json) {					            
+			success: function(json) {			
+				
 				var field = document.getElementById('category');
-	            Relatorio.showOptions(json,field);
+	            Relatorio.showOptions(JSON.stringify(json),field);
 			}
 		})
 	},

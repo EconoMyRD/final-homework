@@ -5,8 +5,9 @@ var MakeGraphic = {
 		
 		getDataForGraphic: function(dateS, dateE, cat) {
 		$.ajax({
-			url: MakeGraphic.connection + '/ServletRelatory',
+			url: MakeGraphic.connection + '/resources/transaction/relatory',
 			data:{ dateStart: dateS , dateEnd: dateE, category: cat},
+			methd: 'GET',
 			success: function(jsonString){
 				var json = JSON.parse(jsonString);
 				var jsonGraphic = JSON.parse(json[0]);
@@ -165,28 +166,21 @@ var MakeGraphic = {
         var dateStart = Relatorio.formatDate(dateS);
         var dateEnd =  Relatorio.formatDate(dateE);
 
-    	
-        var ajax = ajaxInit();
-        if (ajax) {
-            var url = FactoryConnection.getConnection() + '/ServletDetailedGraphic?dateStart='
-                    + dateStart + '&dateEnd=' + dateEnd + '&subcategory=' + subcategory;
-            ajax.open('GET', url, true);
-            ajax.send();
-        }
-        ajax.onreadystatechange = function() {
-            if (ajax.readyState == 4 && ajax.status == 200) {
-                var jsonString = ajax.responseText;
-                var json = JSON.parse(jsonString);
-                
-                var jsonGraphic = JSON.parse(json[0]);
-				var jsonTable = JSON.parse(json[1]);
-				
-                MakeGraphic.drawDetailedChart(jsonGraphic);
-                MakeGraphic.createTable(jsonTable);
-                
-                
-            }
-        };
+    	$.ajax({
+    		url : MakeGraphic.connection + '/resources/transaction/relatory/detailed',
+			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory},
+    		method: 'GET',
+    		
+    		success: function(jsonString) {
+    			var json = JSON.parse(jsonString);
+    			
+    			var jsonGraphic = JSON.parse(json[0]);
+    			var jsonTable = JSON.parse(json[1]);
+    			
+    			MakeGraphic.drawDetailedChart(jsonGraphic);
+    			MakeGraphic.createTable(jsonTable);
+			}
+    	});
     },
 
     
@@ -218,10 +212,6 @@ var MakeGraphic = {
 	            show: { 
 	                toolbar: true,
 	                footer: true,
-//	                toolbarAdd: true,
-//	                toolbarDelete: true,
-//	                toolbarSave: true,
-//	                toolbarEdit: true
 	            },
 	            searches: [                
 	                { field: 'categoria', caption: 'categoria', type: 'text' },

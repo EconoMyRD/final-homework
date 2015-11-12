@@ -1,5 +1,6 @@
 var logoffSystem =
 {
+	connection: FactoryConnection.getConnection(),
 	
 	init: function()
     {
@@ -16,17 +17,15 @@ var logoffSystem =
     
     exitSession: function()
     {
-       var ajax = ajaxInit(),
-			url = FactoryConnection.getConnection() + '/logoff';
-		ajax.open('GET', url, true);
-		ajax.send();
-		ajax.onreadystatechange = function() 
-        {
-			if(ajax.readyState==4 && ajax.status==200)
-            {
-				window.location.href= FactoryConnection.getConnection() + '/index.html';		
+    	$.ajax({
+    		url : logoffSystem.connection  + '/resourceslogout',
+    		method: 'POST',
+    		
+    		success: function() {
+    			window.location.href= logoffSystem.connection  + '/index.html';		
+				
 			}
-		}; 
+    	});
     }
 };
 
