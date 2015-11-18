@@ -1,6 +1,0 @@
-package br.com.economy.model;
-
-public class Login {
-	String password;
-	
-}

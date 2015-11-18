@@ -43,12 +43,24 @@ var loginSystem = {
 	            //data: JSON.stringify(credentials),
 
 	            success: function (result) {
-	            	loginSystem.verifyActive(result);
+	            	debugger;
+	            	alert(result.toString());
+	            	var json = JSON.parse(result);
+	            	loginSystem.verifyActive(json['active']);
+	            	loginSystem.setSessionStorage(json['userId']);
 	            },
 	            error: function () {
 	                alert("Error login");
 	            }
 	        });
+	},
+	
+	
+	setSessionStorage: function(userId) {
+		alert(userId);
+		if(userId != null){
+			sessionStorage.setItem('userId', userId);
+		}
 	},
 	
 	

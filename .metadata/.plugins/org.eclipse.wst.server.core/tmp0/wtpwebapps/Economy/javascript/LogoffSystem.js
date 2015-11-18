@@ -17,15 +17,17 @@ var logoffSystem =
     
     exitSession: function()
     {
-    	$.ajax({
-    		url : logoffSystem.connection  + '/resourceslogout',
-    		method: 'POST',
-    		
-    		success: function() {
-    			window.location.href= logoffSystem.connection  + '/index.html';		
-				
-			}
-    	});
+//    	$.ajax({
+//    		url : logoffSystem.connection  + '/resourceslogout',
+//    		method: 'POST',
+//    		
+//    		success: function() {
+//    			window.location.href= logoffSystem.connection  + '/index.html';		
+//				
+//			}
+//    	});
+    	sessionStorage.removeItem('userId');
+    	window.location.href= logoffSystem.connection  + '/index.html';
     }
 };
 

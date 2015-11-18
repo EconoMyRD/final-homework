@@ -11,10 +11,9 @@ var Relatorio = {
     
     total: function(){
     	$.ajax({
-    		url : Relatorio.connection + '/resources/sale',
+    		url : Relatorio.connection + '/resources/user/sale/' + sessionStorage.getItem('userId'),
     		method:'GET',
-    		success: function() {
-    			var total = ajax.responseText;
+    		success: function(total) {
     			Relatorio.showTotal(total);
     		}
 		});

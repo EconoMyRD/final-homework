@@ -13,8 +13,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.google.gson.Gson;
 
 import br.com.economy.DAO.UserDao;
 import br.com.economy.email.Email;
@@ -44,8 +48,9 @@ public class User {
     
     @GET
     @Path("/login/{email}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
     //TODO change this method to POST
-	public int login(@PathParam("email")String email, @PathParam("password")String password, @Context HttpServletRequest request, @Context HttpServletResponse response){
+	public String login(@PathParam("email")String email, @PathParam("password")String password, @Context HttpServletRequest request, @Context HttpServletResponse response){
 //    	String email = request.getParameter("email");
 //    	String password = request.getParameter("password");
     	
@@ -53,18 +58,32 @@ public class User {
 		Integer active = DAO.verifyUser(email, password);
 		
 		System.out.println(active);
-		if(active == 3){
-			try {
-				initSession(email, request, response);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		Integer userId = null;
+		if(active  == 3){
+			Usuario user = DAO.getUserByEmail(email);
+			userId = user.getId();
 		}
 		
-		return active;
+		String jsonString = "{\"active\": " + active + ", \"userId\": " + userId + "}";
+		System.out.println(jsonString);
+		Gson gson  = new Gson();
+
+		String json = gson.toJson(jsonString);
+		System.out.println(json);
+//		if(active == 3){
+//			try {
+//				initSession(email, request, response);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
+		return json;
 	}
+    
+    
 	
+    
 	public void initSession( String email, @Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException{
 		Usuario user = new Usuario();
 		user = DAO.getUserByEmail(email);
@@ -80,19 +99,19 @@ public class User {
 	}
 	
 	
-	@GET
-	@Path("/logout")
-	public void logout( @Context HttpServletRequest request) throws ServletException, IOException
-	{
-        Cookie cookies[] = request.getCookies();
-        for(Cookie cookie : cookies){
-        	
-		        cookie.setMaxAge(0);
-		        cookie.setPath("/");
-		        HttpSession session = request.getSession();
-		        session.invalidate();		        
-		}
-	}
+//	@GET
+//	@Path("/logout")
+//	public void logout( @Context HttpServletRequest request) throws ServletException, IOException
+//	{
+//        Cookie cookies[] = request.getCookies();
+//        for(Cookie cookie : cookies){
+//        	
+//		        cookie.setMaxAge(0);
+//		        cookie.setPath("/");
+//		        HttpSession session = request.getSession();
+//		        session.invalidate();		        
+//		}
+//	}
 
 	
 	@POST
@@ -135,20 +154,21 @@ public class User {
 	
 	
 	@GET
-	@Path("/sale")
-	public float getSale(@Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException 
+	@Path("/sale/{userId}")
+	public float getSale(@PathParam("userId")int user, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException 
 	{
-		UserDao dao = new UserDao();
-		int user =0;
-		Cookie cookies[] = request.getCookies();
-		
-		for(Cookie cookie : cookies){
-		    if("userId".equals(cookie.getName())){
-		        user = Integer.parseInt(cookie.getValue());
-		    }
-		}
+//		UserDao dao = new UserDao();
+//		int user =0;
+//		Cookie cookies[] = request.getCookies();
+//		
+//		for(Cookie cookie : cookies){
+//		    if("userId".equals(cookie.getName())){
+//		        user = Integer.parseInt(cookie.getValue());
+//		    }
+//		}
+		 
 		System.out.println(user);
-		Float total = dao.getTotal(user);
+		Float total = DAO.getTotal(user);
 		
 		return total;
 	}

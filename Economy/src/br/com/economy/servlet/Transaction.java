@@ -8,21 +8,26 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import br.com.economy.DAO.TransactionDAO;
 import br.com.economy.DAO.UserDao;
 import br.com.economy.entities.Transacao;
+import net.sf.json.JSONObject;
 
 @Path("/transaction")
 public class Transaction {
@@ -30,48 +35,47 @@ public class Transaction {
 	TransactionDAO transacaoDAO = new TransactionDAO();
 	UserDao usuarioDAO =  new UserDao();
 	
+	
 	@POST
-	public void setTransaction(@PathParam("description") String description, @PathParam("value") float value,
-			@PathParam("date_transaction") String date_transactionString, @PathParam("category") int category,
-			@PathParam("subactegory") int subcategory, @Context HttpServletRequest request,
-			@Context HttpServletResponse response) throws IOException {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void setTransaction( String j/*@Context HttpServletRequest request,
+			@Context HttpServletResponse response*/) throws IOException {
 
+		JsonParser parser = new JsonParser();
+		JsonObject json = (JsonObject)parser.parse(j);
+		
+		
+		String description = json.get("description").getAsString();
+		float value = json.get("value").getAsFloat();
+		String date_transactionString = json.get("date_transcation").getAsString();
+		int category = json.get("category").getAsInt();
+		int subcategory = json.get("subcategory").getAsInt();
+		int userId = json.get("user").getAsInt();
+		
+		System.out.println(value);
 		Date date_register = new Date();
 		Date date_transaction = new Date();
-		int userId=0;
+		
+		System.out.println("user =" + userId);
 
-		Cookie cookies[] = request.getCookies();
-		if (cookies != null)
+		try 
 		{
-			
-			for(Cookie cookie : cookies){
-			    if("userId".equals(cookie.getName())){
-			        userId = Integer.parseInt(cookie.getValue());
-			    }
-			}
-			System.out.println("user =" + userId);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");			
+			date_transaction = sdf.parse(date_transactionString);
 
-			try 
-			{
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");			
-				date_transaction = sdf.parse(date_transactionString);
+			persistOnDataBase(value,date_transaction, date_register, description,subcategory,userId, category);
 
-				persistOnDataBase(value,date_transaction, date_register, description,subcategory,userId, category);
-
-			} 
-			catch (ParseException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-		else
+		} 
+		catch (ParseException e) 
 		{
-			response.sendRedirect("../html/index.html");
+			e.printStackTrace();
 		}
+		
+		
 	}
 
-	private void persistOnDataBase(float value,Date date_transaction,Date date_register,
-			String description, int subcategory,int user, int category) {
+	private void persistOnDataBase(float value,Date date_transaction, Date date_register, 
+			String description,int subcategory,int user, int category) {
 
 		// set the object transaction
 		Transacao transaction = new Transacao();
@@ -84,7 +88,7 @@ public class Transaction {
 		transaction.setUsuarioId(user);
 		//System.out.println("lets go insert");
 		
-		//persist on data base
+		//TODO verify for the subcategory 
 		if(transacaoDAO.verifyCategory(category)){		//true = +
 			usuarioDAO.setTotalMore(value, user);
 		}
@@ -100,7 +104,7 @@ public class Transaction {
 	@GET
 	@Path("/relatory")
 	public String relatory(@QueryParam("dateStart") String dateStart, @QueryParam("dateEnd") String dateEnd,
-			@QueryParam("category") int category, @Context HttpServletRequest request, 
+			@QueryParam("category") int category, @QueryParam("userId") int userId, @Context HttpServletRequest request, 
 			@Context HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println(dateEnd + dateStart);
@@ -109,16 +113,16 @@ public class Transaction {
 		Date dateE = new Date();
 		Date dateS = new Date();
 		
-		Cookie cookies[] = request.getCookies();
-		int userId=0;
-		if (cookies != null)
-		{
-			for(Cookie cookie : cookies){
-			    if("userId".equals(cookie.getName())){
-			        userId = Integer.parseInt(cookie.getValue());
-			    }
-			}
-		}
+//		Cookie cookies[] = request.getCookies();
+//		int userId=0;
+//		if (cookies != null)
+//		{
+//			for(Cookie cookie : cookies){
+//			    if("userId".equals(cookie.getName())){
+//			        userId = Integer.parseInt(cookie.getValue());
+//			    }
+//			}
+//		}
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			dateS = sdf.parse(dateStart);
@@ -148,8 +152,8 @@ public class Transaction {
 	
 	@GET
 	@Path("/relatory/detailed")
-	public String detailedRelatory(@PathParam("dateStart") String dateStart, @PathParam("dateEnd") String dateEnd,
-			@PathParam("subcategory") String subcategory,
+	public String detailedRelatory(@QueryParam("dateStart") String dateStart, @QueryParam("dateEnd") String dateEnd,
+			@QueryParam("subcategory") String subcategory, @QueryParam("userId") int userId,
 			@Context HttpServletRequest request, @Context HttpServletResponse response) 
 			throws ServletException, IOException {
 		
@@ -159,16 +163,16 @@ public class Transaction {
 		Date dateS = new Date();
 		
 		////  get user
-		Cookie cookies[] = request.getCookies();
-		int userId=0;
-		if (cookies != null)
-		{
-			for(Cookie cookie : cookies){
-			    if("userId".equals(cookie.getName())){
-			        userId = Integer.parseInt(cookie.getValue());
-			    }
-			}
-		}
+//		Cookie cookies[] = request.getCookies();
+//		int userId=0;
+//		if (cookies != null)
+//		{
+//			for(Cookie cookie : cookies){
+//			    if("userId".equals(cookie.getName())){
+//			        userId = Integer.parseInt(cookie.getValue());
+//			    }
+//			}
+//		}
 		
 		SimpleDateFormat sdf = new  SimpleDateFormat("dd/MM/yyyy");
 		try {

@@ -16,6 +16,7 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @SqlResultSetMapping(name="getTransactions", entities ={ 
@@ -43,6 +44,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="TRANSACAO")
+@XmlRootElement
 public class Transacao implements Serializable 
 {
 	@Id

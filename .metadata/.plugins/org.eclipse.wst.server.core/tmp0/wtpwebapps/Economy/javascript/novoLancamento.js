@@ -7,7 +7,8 @@ var novoLancamento = {
     },
     
     setForm: function(){
-        $('#category').on('load',novoLancamento.getCategories());
+    	//novoLancamento.getCategories();
+       $('#category').on('load',novoLancamento.getCategories());
         $('#category').change(novoLancamento.changeSubcategory);
         $('#submit').on('click', novoLancamento.getValues);
     },
@@ -20,7 +21,7 @@ var novoLancamento = {
     
     
     getOptionCategory: function(){
-        var category =$('#category');
+        var category =document.getElementById('category');
         var selected = String(category.options[category.selectedIndex].value);
         
         return selected;
@@ -30,12 +31,12 @@ var novoLancamento = {
 
      getSubcategories: function(select){    
           $.ajax({
-        	  url: novoLancamento.connection + '/resources/category/sub/',
-        	  data: {'select': select},
+        	  url: novoLancamento.connection + '/resources/category/sub/' + select,
+        	 // data: {'select': select},
         	  method:'GET',
         	  
         	  success: function(json) {
-        		  var field = $('#subcategory');
+        		  var field = document.getElementById('subcategory');
         		  var html = novoLancamento.getHTML(JSON.stringify(json));
         		  novoLancamento.showHTML(html, field);
         	  }
@@ -47,10 +48,10 @@ var novoLancamento = {
     getValues: function(){
         var description = $('#description').val();
         var value = $('#value').val();
-        var subcategory  = $('#subcategory');
+        var subcategory  = document.getElementById('subcategory');
         var selectedSub = String(subcategory.options[subcategory.selectedIndex].value);
         var date = String($('#date_transaction').val());  
-        var category = $('#category');
+        var category = document.getElementById('category');
         var selectedCategory = String(category.options[category.selectedIndex].value);
         formatedDate = novoLancamento.formatDate(date);
         
@@ -67,11 +68,18 @@ var novoLancamento = {
     },
 
     saveOnDataBase: function(description,value, subcategory,date, selectedCategory){
+    	var data = {
+    			'description' : description ,
+    			'value' : value , 
+    			'subcategory' : subcategory ,
+    			'date_transaction' : date ,
+    			'category' : selectedCategory,
+    			'user' : sessionStorage.getItem('userId')
+    		};
         $.ajax({
         	url:  novoLancamento.connection +'/resources/transaction',
-        	data: {'description' : description , 'value' : value ,  'subcategory' : subcategory ,
-        		'date_transaction' : date , 'category' : selectedCategory},
-        	method: 'POST'
+        	data: data,
+        	type: 'POST'
         	
         });
       },
@@ -103,7 +111,7 @@ var novoLancamento = {
 			url: novoLancamento.connection + '/resources/category',
 			method: 'GET',
 			success: function(json) {					            
-	            var field = $('#category');
+	            var field = document.getElementById('category');
 	            var html = novoLancamento.getHTML(JSON.stringify(json));
 	            novoLancamento.showHTML(html, field);
 	            novoLancamento.changeSubcategory();
