@@ -21,8 +21,8 @@ var Relatorio = {
     
     
     showTotal: function(total){
-    	var field = $('#total');
-    	field.innerHTML = 'Saldo : ' + total;
+    	var field = document.getElementById('total');
+    	field.innerHTML = 'Saldo : R$ ' + total;
     },
     
    

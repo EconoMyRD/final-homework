@@ -35,8 +35,8 @@ var w2utils = (function () {
     var obj = {
         version  : '1.4.3',
         settings : {
-            "locale"            : "en-us",
-            "date_format"       : "m/d/yyyy",
+            "locale"            : "pt-br",
+            "date_format"       : "d/m/yyyy",
             "date_display"      : "Mon d, yyyy",
             "time_format"       : "hh:mi pm",
             "currencyPrefix"    : "$",

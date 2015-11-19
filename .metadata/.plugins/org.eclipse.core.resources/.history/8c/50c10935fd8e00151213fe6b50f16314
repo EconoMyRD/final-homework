@@ -22,7 +22,7 @@ var Relatorio = {
     
     showTotal: function(total){
     	var field = document.getElementById('total');
-    	field.innerHTML = 'Saldo : R$ ' + total;
+    	field.innerHTML = 'Saldo : ' + total;
     },
     
    

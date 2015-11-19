@@ -198,6 +198,7 @@ var MakeGraphic = {
         for (var j in json) {
             records.push({recid: j, categoria: json[j].nameCat, descricao: json[j].description , valor: json[j].value, data: new Date(json[j].date).toLocaleString().split(" ")[0] });
         }
+        records.push({summary: true, recid: '', categoria: '<span style="float: right;font-size: 20px;">Saldo</span>', descricao: '65151'});
        return records;
 	},
 	
@@ -238,8 +239,10 @@ var MakeGraphic = {
 	            onSubmit: function (event) {
 	                w2alert('save');
 	            },
-	            records: [   ]
+	            records: [  
+	                  ]
 	        });
+	        
 	        w2ui['table'].clear();
 	        w2ui['table'].add(MakeGraphic.getDataForTable(json));
 	        
