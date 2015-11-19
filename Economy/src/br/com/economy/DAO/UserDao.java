@@ -40,6 +40,7 @@ public class UserDao
 	
 	
 	public  Usuario getUserByEmail(String email) throws NoResultException{
+		System.out.println(email);
 		Query q = em.createNativeQuery("select * from usuario u where u.email = ?", Usuario.class);
 		q.setParameter(1, email);
 		

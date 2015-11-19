@@ -36,15 +36,11 @@ var loginSystem = {
 	},
 	
 	sendCredentials: function(credentials){
-		alert(JSON.stringify(credentials));
+		//alert(JSON.stringify(credentials));
 		 $.ajax({
 	            url: loginSystem.connection + '/resources/user/login/' + credentials.email +'/' + credentials.password,
 	            method: 'GET',
-	            //data: JSON.stringify(credentials),
-
 	            success: function (result) {
-	            	debugger;
-	            	alert(result.toString());
 	            	var json = JSON.parse(result);
 	            	loginSystem.verifyActive(json['active']);
 	            	loginSystem.setSessionStorage(json['userId']);
@@ -57,7 +53,7 @@ var loginSystem = {
 	
 	
 	setSessionStorage: function(userId) {
-		alert(userId);
+		//alert(userId);
 		if(userId != null){
 			sessionStorage.setItem('userId', userId);
 		}

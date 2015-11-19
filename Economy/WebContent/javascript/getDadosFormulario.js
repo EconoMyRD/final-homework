@@ -33,7 +33,7 @@ var GetDadosFormulario = {
         $.ajax({
             url: GetDadosFormulario.connection + '/resources/user/create',
             method: 'POST',
-            data: cliente,
+            data: JSON.stringify(cliente),
 
             success: function (result) {
             	if(result == 1)
@@ -53,19 +53,19 @@ var GetDadosFormulario = {
         });
     },
 
-    sendEmail: function (form) {
+    sendEmail: function (cliente) {
     	
-    	var	cliente =
-		{
-			nome: form.nome.value,
-			email: form.email.value,
-			senha: form.senha.value
-		};
+//    	var	cliente =
+//		{
+//			nome: form.nome.value,
+//			email: form.email.value,
+//			senha: form.senha.value
+//		};
     	
         $.ajax({
             url: GetDadosFormulario.connection + '/resources/user/sendEmail',
             method: 'POST',
-            data: cliente,
+            data: JSON.stringify(cliente),
 
             success: function (result) {
             	GetDadosFormulario.clearMessage();

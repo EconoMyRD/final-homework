@@ -19,6 +19,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import br.com.economy.DAO.UserDao;
 import br.com.economy.email.Email;
@@ -116,22 +118,30 @@ public class User {
 	
 	@POST
 	@Path("/sendEmail")
-	public void sendEmail( @PathParam("name") String name, @PathParam("email") String email,
-			@PathParam("password") String password, @Context HttpServletRequest request, 
-			@Context HttpServletResponse response) throws ServletException, IOException {
+	public void sendEmail( String data) throws ServletException, IOException {
 		
-		String message = "Olá " + name +
+		JsonParser parser = new JsonParser();
+		JsonObject json = (JsonObject)parser.parse(data);
+		
+		String message = "Olá " + json.get("nome").getAsString() +
 				"\n\nPara ativar sua conta clique no link abaixo."
-				+ "\nVocê pode entrar em sua conta utilizando seu email e sua senha: " + password + 
-				"\n\n http://localhost:8080/Economy/servletActivateUser?email=" + email;
+				+ "\nVocê pode entrar em sua conta utilizando seu email e sua senha: " + json.get("senha").getAsString() + 
+				"\n\n http://localhost:8080/Economy/servletActivateUser?email=" + json.get("email").getAsString();
 		Email sender = new Email();
-		sender.sendMail("ricardo.jonas.faria@gmail.com", email, "ativação de sua conta Economy", message);
+		sender.sendMail("ricardo.jonas.faria@gmail.com", json.get("email").getAsString(), "ativação de sua conta Economy", message);
 	}
 	
 	@POST
 	@Path("/create")
-	public int create(@PathParam("email") String email, @PathParam("nome") String name, @PathParam("senha") String password) throws ServletException, IOException 
+	public int create(String user) throws ServletException, IOException 
 	{
+
+		System.out.println(user);
+		JsonParser parser = new JsonParser();
+		JsonObject json = (JsonObject)parser.parse(user);
+		String email = json.get("email").getAsString();
+		String name = json.get("nome").getAsString();
+		String password = json.get("senha").getAsString();
 		
 		int confirm = DAO.verifyEmail(email);
 		if(confirm == 0){

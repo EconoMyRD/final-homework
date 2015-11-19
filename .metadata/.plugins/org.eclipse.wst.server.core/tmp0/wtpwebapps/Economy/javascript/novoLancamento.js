@@ -68,19 +68,20 @@ var novoLancamento = {
     },
 
     saveOnDataBase: function(description,value, subcategory,date, selectedCategory){
-    	var data = {
-    			'description' : description ,
-    			'value' : value , 
-    			'subcategory' : subcategory ,
-    			'date_transaction' : date ,
-    			'category' : selectedCategory,
-    			'user' : sessionStorage.getItem('userId')
-    		};
-        $.ajax({
+        var data  = {
+    			description : description ,
+    			value : value , 
+    			subcategory : subcategory ,
+    			date_transcation : date ,
+    			category : selectedCategory,
+    			user : sessionStorage.getItem('userId')
+    		}; 	
+    	$.ajax({
         	url:  novoLancamento.connection +'/resources/transaction',
-        	data: data,
-        	type: 'POST'
-        	
+        	type: 'POST',        	
+        	contentType: 'application/json',
+        	dataType: "json",
+        	data: JSON.stringify(data)
         });
       },
   

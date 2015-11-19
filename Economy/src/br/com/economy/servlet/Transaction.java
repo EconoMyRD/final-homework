@@ -37,10 +37,11 @@ public class Transaction {
 	
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+	//@Consumes(MediaType.APPLICATION_JSON)
 	public void setTransaction( String j/*@Context HttpServletRequest request,
 			@Context HttpServletResponse response*/) throws IOException {
 
+		System.out.println(j);
 		JsonParser parser = new JsonParser();
 		JsonObject json = (JsonObject)parser.parse(j);
 		

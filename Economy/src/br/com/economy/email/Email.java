@@ -40,6 +40,11 @@ public class Email {
 //    }  
       
     public void sendMail(String from, String to, String subject, String message) {  
+        System.out.println("\n\n\n\n send");  
+    	System.out.println(to);
+          System.out.println(from);
+          System.out.println(subject);
+          System.out.println(message);
           
         Properties props = new Properties();  
   
@@ -63,7 +68,7 @@ public class Email {
          
         //Cria um autenticador que sera usado a seguir  
         SimpleAuth auth = null;  
-        auth = new SimpleAuth ("danielamaradms@gmail.com","silvamaradaniela2804");  
+        auth = new SimpleAuth ("ricardo.jonas.faria@gmail.com","ricardo2406");  
           
         //Session - objeto que ira realizar a conexão com o servidor  
         /*Como há necessidade de autenticação é criada uma autenticacao que 
