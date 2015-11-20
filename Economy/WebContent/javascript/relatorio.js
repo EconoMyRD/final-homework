@@ -52,7 +52,7 @@ var Relatorio = {
     
     showOptions: function(json, field){
         var options = JSON.parse(json);
-        var html= "";
+        var html= '<option value="0" >Geral</option>';
 
         for (var i in options) {
             html+= '<option value = "';
@@ -74,21 +74,10 @@ var Relatorio = {
 	            Relatorio.showOptions(JSON.stringify(json),field);
 			}
 		})
-	},
+	}
     
 	    
-		showOptions: function(json, field){
-			var options = JSON.parse(json);
-			var html= "";
-			
-			for (var i in options) {
-				html+= '<option value = "';
-				html+= options[i].id + '">';
-				html+= options[i].nome;
-				html += '</option>';   				    				
-			}    		
-			field.innerHTML = html;
-		}
+		
     
 	
 	

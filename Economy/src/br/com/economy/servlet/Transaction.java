@@ -10,15 +10,11 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -27,7 +23,6 @@ import com.google.gson.JsonParser;
 import br.com.economy.DAO.TransactionDAO;
 import br.com.economy.DAO.UserDao;
 import br.com.economy.entities.Transacao;
-import net.sf.json.JSONObject;
 
 @Path("/transaction")
 public class Transaction {
@@ -114,16 +109,6 @@ public class Transaction {
 		Date dateE = new Date();
 		Date dateS = new Date();
 		
-//		Cookie cookies[] = request.getCookies();
-//		int userId=0;
-//		if (cookies != null)
-//		{
-//			for(Cookie cookie : cookies){
-//			    if("userId".equals(cookie.getName())){
-//			        userId = Integer.parseInt(cookie.getValue());
-//			    }
-//			}
-//		}
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			dateS = sdf.parse(dateStart);
@@ -163,17 +148,6 @@ public class Transaction {
 		Date dateE = new Date();
 		Date dateS = new Date();
 		
-		////  get user
-//		Cookie cookies[] = request.getCookies();
-//		int userId=0;
-//		if (cookies != null)
-//		{
-//			for(Cookie cookie : cookies){
-//			    if("userId".equals(cookie.getName())){
-//			        userId = Integer.parseInt(cookie.getValue());
-//			    }
-//			}
-//		}
 		
 		SimpleDateFormat sdf = new  SimpleDateFormat("dd/MM/yyyy");
 		try {
