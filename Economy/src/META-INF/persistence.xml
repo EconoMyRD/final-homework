@@ -10,7 +10,7 @@
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"></property>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/economy"></property>
 			<property name="javax.persistence.jdbc.user" value="postgres"></property>
-			<property name="javax.persistence.jdbc.password" value="postgres"></property>
+			<property name="javax.persistence.jdbc.password" value="dani2804"></property>
 		</properties>
 	</persistence-unit>
 </persistence>

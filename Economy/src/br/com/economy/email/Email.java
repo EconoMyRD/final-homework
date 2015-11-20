@@ -68,7 +68,7 @@ public class Email {
          
         //Cria um autenticador que sera usado a seguir  
         SimpleAuth auth = null;  
-        auth = new SimpleAuth ("ricardo.jonas.faria@gmail.com","ricardo2406");  
+        auth = new SimpleAuth ("danielamaradms@gmail.com","viajareamelhorcoisadomundo2804");  
           
         //Session - objeto que ira realizar a conexão com o servidor  
         /*Como há necessidade de autenticação é criada uma autenticacao que 
