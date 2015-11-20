@@ -4,10 +4,11 @@ var MakeGraphic = {
 		connection: FactoryConnection.getConnection(),
 		
 		getDataForGraphic: function(dateS, dateE, cat) {
+		
 		$.ajax({
-			url: MakeGraphic.connection + '/resources/transaction/relatory',
-			data:{ dateStart: dateS , dateEnd: dateE, category: cat},
-			methd: 'GET',
+			url: MakeGraphic.connection + '/resources/transaction/relatory/',
+			data:{'dateStart': dateS , 'dateEnd': dateE, 'category': cat, 'userId': sessionStorage.getItem('userId')},
+			method: 'GET',
 			success: function(jsonString){
 				var json = JSON.parse(jsonString);
 				var jsonGraphic = JSON.parse(json[0]);
@@ -168,7 +169,7 @@ var MakeGraphic = {
 
     	$.ajax({
     		url : MakeGraphic.connection + '/resources/transaction/relatory/detailed',
-			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory},
+			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory, 'userId': sessionStorage.getItem('userId')},
     		method: 'GET',
     		
     		success: function(jsonString) {
@@ -237,8 +238,13 @@ var MakeGraphic = {
 	            onSubmit: function (event) {
 	                w2alert('save');
 	            },
-	            records: [   ]
+	            records: [  
+	                  { 
+	                	  summary: true, 
+	                	  recid: 'S-1', lname: '<span style="float: right;">Saldo</span>', fname: '65151'
+	                  } ]
 	        });
+	        
 	        w2ui['table'].clear();
 	        w2ui['table'].add(MakeGraphic.getDataForTable(json));
 	        

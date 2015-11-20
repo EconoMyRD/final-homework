@@ -11,10 +11,9 @@ var Relatorio = {
     
     total: function(){
     	$.ajax({
-    		url : Relatorio.connection + '/resources/getTotal',
+    		url : Relatorio.connection + '/resources/user/sale/' + sessionStorage.getItem('userId'),
     		method:'GET',
-    		success: function() {
-    			var total = ajax.responseText;
+    		success: function(total) {
     			Relatorio.showTotal(total);
     		}
 		});
@@ -22,7 +21,7 @@ var Relatorio = {
     
     
     showTotal: function(total){
-    	var field = $('#total');
+    	var field = document.getElementById('total');
     	field.innerHTML = 'Saldo : ' + total;
     },
     
@@ -70,9 +69,9 @@ var Relatorio = {
 			url: Relatorio.connection + '/resources/category',
 			method: 'GET',
 			success: function(json) {			
-				alert(json);
+				
 				var field = document.getElementById('category');
-	            Relatorio.showOptions(JSON.parse(json),field);
+	            Relatorio.showOptions(JSON.stringify(json),field);
 			}
 		})
 	},

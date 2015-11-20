@@ -195,7 +195,6 @@ var MakeGraphic = {
     
     getDataForTable: function(json) {    	
     	var records = [];
-    	
         for (var j in json) {
             records.push({recid: j, categoria: json[j].nameCat, descricao: json[j].description , valor: json[j].value, data: new Date(json[j].date).toLocaleString().split(" ")[0] });
         }

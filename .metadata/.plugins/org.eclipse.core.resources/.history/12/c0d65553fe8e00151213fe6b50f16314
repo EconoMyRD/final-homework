@@ -4,10 +4,11 @@ var MakeGraphic = {
 		connection: FactoryConnection.getConnection(),
 		
 		getDataForGraphic: function(dateS, dateE, cat) {
+		
 		$.ajax({
-			url: MakeGraphic.connection + '/resources/transaction/relatory/' + dateStart + '/' + dateEnd +'/' + category,
-			//data:{ dateStart: dateS , dateEnd: dateE, category: cat},
-			methd: 'GET',
+			url: MakeGraphic.connection + '/resources/transaction/relatory/',
+			data:{'dateStart': dateS , 'dateEnd': dateE, 'category': cat, 'userId': sessionStorage.getItem('userId')},
+			method: 'GET',
 			success: function(jsonString){
 				var json = JSON.parse(jsonString);
 				var jsonGraphic = JSON.parse(json[0]);
@@ -168,7 +169,7 @@ var MakeGraphic = {
 
     	$.ajax({
     		url : MakeGraphic.connection + '/resources/transaction/relatory/detailed',
-			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory},
+			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory, 'userId': sessionStorage.getItem('userId')},
     		method: 'GET',
     		
     		success: function(jsonString) {

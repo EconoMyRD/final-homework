@@ -11,10 +11,9 @@ var Relatorio = {
     
     total: function(){
     	$.ajax({
-    		url : Relatorio.connection + '/resources/getTotal',
+    		url : Relatorio.connection + '/resources/user/sale/' + sessionStorage.getItem('userId'),
     		method:'GET',
-    		success: function() {
-    			var total = ajax.responseText;
+    		success: function(total) {
     			Relatorio.showTotal(total);
     		}
 		});
@@ -70,9 +69,9 @@ var Relatorio = {
 			url: Relatorio.connection + '/resources/category',
 			method: 'GET',
 			success: function(json) {			
-				alert(JSON.parse(json));
+				
 				var field = document.getElementById('category');
-	            Relatorio.showOptions(json,field);
+	            Relatorio.showOptions(JSON.stringify(json),field);
 			}
 		})
 	},
