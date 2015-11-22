@@ -4,6 +4,7 @@ package br.com.economy.DAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -305,6 +306,13 @@ EntityManager em = HibernateUtil.getEntityManager();
 		return transacao;
 	}
 
+	public ArrayList<Transacao> GetTransacaoByUser(Integer idUser)
+	{
+		Query query = em.createNativeQuery("SELECT * FROM transacao t where t.usuario = ?");
+		query.setParameter(1, idUser);
+		
+	    return (ArrayList<Transacao>) query.getResultList();
+	}
 	
 	public TransactionDAO() 
 	{

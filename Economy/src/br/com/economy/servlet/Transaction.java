@@ -28,6 +28,7 @@ import com.sun.org.apache.xml.internal.serializer.TransformStateSetter;
 import br.com.economy.DAO.TransactionDAO;
 import br.com.economy.DAO.UserDao;
 import br.com.economy.entities.Transacao;
+import br.com.economy.model.ModelAllTransaction;
 import jdk.nashorn.internal.objects.annotations.Getter;
 
 @Path("/transaction")
@@ -190,5 +191,17 @@ public class Transaction {
 		Transacao transacao = transacaoDAO.GetTransacaoById(id);
 		transacaoDAO.Delete(transacao);
 		return "delete ok";
+	}
+	
+	
+	@GET
+	@Path("/getAll/user/{user}")
+	public String GetByUser(@PathParam("user") int user)
+	{
+		Gson gson =  new Gson();
+		ModelAllTransaction model = new ModelAllTransaction();
+		model.setData(transacaoDAO.GetTransacaoByUser(user));
+		
+		return gson.toJson(model);
 	}
 }
