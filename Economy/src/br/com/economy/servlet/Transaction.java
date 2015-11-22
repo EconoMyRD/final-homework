@@ -10,26 +10,31 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.org.apache.xml.internal.serializer.TransformStateSetter;
 
 import br.com.economy.DAO.TransactionDAO;
 import br.com.economy.DAO.UserDao;
 import br.com.economy.entities.Transacao;
+import jdk.nashorn.internal.objects.annotations.Getter;
 
 @Path("/transaction")
 public class Transaction {
 
 	TransactionDAO transacaoDAO = new TransactionDAO();
 	UserDao usuarioDAO =  new UserDao();
-	
 	
 	@POST
 	//@Consumes(MediaType.APPLICATION_JSON)
@@ -135,7 +140,6 @@ public class Transaction {
 	}
 	
 	
-	
 	@GET
 	@Path("/relatory/detailed")
 	public String detailedRelatory(@QueryParam("dateStart") String dateStart, @QueryParam("dateEnd") String dateEnd,
@@ -168,6 +172,23 @@ public class Transaction {
 		Gson gson =  new Gson();
 		String json = gson.toJson(list);
 		return json;
+	}	
+	
+	@PUT
+	@Path("/update/{transacao}")
+	@Produces("application/json")
+	public String UpdateTransaction(@PathParam("transacao") Transacao transacao)
+	{
+		transacaoDAO.Update(transacao);
+		return "ok";
 	}
-
+	
+	@DELETE
+	@Path("/delete/{id}")
+	public String DeleteTransaction(@PathParam("id") int id)
+	{
+		Transacao transacao = transacaoDAO.GetTransacaoById(id);
+		transacaoDAO.Delete(transacao);
+		return "delete ok";
+	}
 }

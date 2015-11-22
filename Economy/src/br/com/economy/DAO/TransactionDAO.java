@@ -24,7 +24,6 @@ public class TransactionDAO
 {
 EntityManager em = HibernateUtil.getEntityManager();
 
-	
 	public String getDataForGraphic(Date dateStart, Date dateEnd, int category, int user){
 			if(category > 0){
 				Query query = em.createNativeQuery("select  sum(t.valor) as value, s.nome as name, "
@@ -275,9 +274,29 @@ EntityManager em = HibernateUtil.getEntityManager();
 
 	public void Update(Transacao transacao)
 	{
-		em.getTransaction().begin();
-		em.merge(transacao);
-		em.getTransaction().commit();
+		try {
+			em.getTransaction().begin();
+			em.merge(transacao);
+			em.getTransaction().commit();
+		} 
+		catch (Exception e) 
+		{
+			em.getTransaction().rollback();
+		}
+	}
+	
+	public void Delete(Transacao transacao)
+	{
+		try {
+			em.getTransaction().begin();
+			em.remove(transacao);
+			em.getTransaction().commit();
+		}
+		catch (Exception e) 
+		{
+			em.getTransaction().rollback();
+		}
+		
 	}
 
 	public Transacao GetTransacaoById(Integer idtransacao)
