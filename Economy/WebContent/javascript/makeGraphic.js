@@ -1,15 +1,15 @@
 var MakeGraphic = {
 		
+	connection: FactoryConnection.getConnection(),
 		
-		connection: FactoryConnection.getConnection(),
-		
-		getDataForGraphic: function(dateS, dateE, cat) {
+	getDataForGraphic: function(dateS, dateE, cat) {
 		
 		$.ajax({
 			url: MakeGraphic.connection + '/resources/transaction/relatory/',
 			data:{'dateStart': dateS , 'dateEnd': dateE, 'category': cat, 'userId': sessionStorage.getItem('userId')},
 			method: 'GET',
 			success: function(jsonString){
+				console.log(jsonString);
 				var json = JSON.parse(jsonString);
 				var jsonGraphic = JSON.parse(json[0]);
 				var jsonTable = JSON.parse(json[1]);
@@ -74,7 +74,6 @@ var MakeGraphic = {
                     point: {
                         events: {
                             click: function () {
-                               // alert('Category: ' + this.category + ', value: ' + this.y);
                                 MakeGraphic.getDataForDetailedGraphic(this.category);
                             }
                         }
@@ -145,7 +144,10 @@ var MakeGraphic = {
     
     getSubcategory: function(json) {
 		//alert(JSON.stringify(json));
-		return json[0].subcategory;
+    	if(json.hasOwnProperty('subcategory'))
+    		return json[0].subcategory;
+    	else
+    		return json[0].category
 	},
 	
 
@@ -159,29 +161,41 @@ var MakeGraphic = {
 	
 	
     getDataForDetailedGraphic: function(subcategory) {
-    	var dateS = new Date();
-        var dateE = new Date();
-        dateS = $('#dateStart').val();
-        dateE = $('#dateEnd').val();
-        
-        var dateStart = Relatorio.formatDate(dateS);
-        var dateEnd =  Relatorio.formatDate(dateE);
-
-    	$.ajax({
-    		url : MakeGraphic.connection + '/resources/transaction/relatory/detailed',
-			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory, 'userId': sessionStorage.getItem('userId')},
-    		method: 'GET',
+    	if($("#category option:selected").text() == "Geral"){
+    		var dateS = new Date();
+            var dateE = new Date();
+            dateS = $('#dateStart').val();
+            dateE = $('#dateEnd').val();
+            
+            var dateStart = Relatorio.formatDate(dateS);
+            var dateEnd =  Relatorio.formatDate(dateE);
+            MakeGraphic.getDataForGraphic(dateStart, dateEnd, subcategory);
+    	}
+    	else{
+    		var dateS = new Date();
+    		var dateE = new Date();
+    		dateS = $('#dateStart').val();
+    		dateE = $('#dateEnd').val();
     		
-    		success: function(jsonString) {
-    			var json = JSON.parse(jsonString);
+    		var dateStart = Relatorio.formatDate(dateS);
+    		var dateEnd =  Relatorio.formatDate(dateE);
+    		
+    		$.ajax({
+    			url : MakeGraphic.connection + '/resources/transaction/relatory/detailed',
+    			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory, 'userId': sessionStorage.getItem('userId')},
+    			method: 'GET',
     			
-    			var jsonGraphic = JSON.parse(json[0]);
-    			var jsonTable = JSON.parse(json[1]);
-    			
-    			MakeGraphic.drawDetailedChart(jsonGraphic);
-    			MakeGraphic.createTable(jsonTable);
-			}
-    	});
+    			success: function(jsonString) {
+    				var json = JSON.parse(jsonString);
+    				
+    				var jsonGraphic = JSON.parse(json[0]);
+    				var jsonTable = JSON.parse(json[1]);
+    				
+    				MakeGraphic.drawDetailedChart(jsonGraphic);
+    				MakeGraphic.createTable(jsonTable);
+    			}
+    		});
+    	}
     },
 
     

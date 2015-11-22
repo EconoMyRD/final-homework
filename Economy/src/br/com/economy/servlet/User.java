@@ -34,7 +34,7 @@ public class User {
     
     @PUT
 	@Path("/active/{email}")
-	protected Response activeUser(@PathParam("email") String email){
+	public Response activeUser(@PathParam("email") String email){
 		DAO.activateUser(email);
 		//TODO redirect to this url
 		java.net.URI location = null;

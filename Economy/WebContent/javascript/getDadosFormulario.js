@@ -39,7 +39,7 @@ var GetDadosFormulario = {
             	if(result == 1)
             	{
             		GetDadosFormulario.clearMessage();
-            		GetDadosFormulario.sendEmail(cliente);
+            		GetDadosFormulario.sendEmail(cliente,form);
             	}
             	else
             		{
@@ -53,7 +53,7 @@ var GetDadosFormulario = {
         });
     },
 
-    sendEmail: function (cliente) {
+    sendEmail: function (cliente, form) {
     	
 //    	var	cliente =
 //		{

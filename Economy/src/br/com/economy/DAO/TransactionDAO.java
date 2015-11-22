@@ -1,25 +1,22 @@
 package br.com.economy.DAO;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.google.gson.Gson;
+
 import br.com.economy.entities.Transacao;
 import br.com.economy.model.ModelDataTable;
 import br.com.economy.model.ModelDetailedGraphic;
+import br.com.economy.model.ModelGraphicGeral;
 import br.com.economy.model.ModelQuery;
 import br.com.economy.model.ModelTableGeral;
-import br.com.economy.model.ModelGraphicGeral;
 import br.com.economy.util.HibernateUtil;
-
-import com.google.gson.Gson;
 
 public class TransactionDAO 
 {
@@ -124,8 +121,7 @@ EntityManager em = HibernateUtil.getEntityManager();
 			
 			List<ModelDataTable> dataTable = new ArrayList<ModelDataTable>();
 			
-			list = query.getResultList();
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			
 			
 			for (int i =0 ;i< list.size(); i++) {
 				float value = Float.parseFloat(list.get(i)[0].toString());
@@ -162,8 +158,7 @@ EntityManager em = HibernateUtil.getEntityManager();
 			
 			List<ModelTableGeral> dataTable = new ArrayList<ModelTableGeral>();
 			
-			list = query.getResultList();
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
 			
 			for (int i =0 ;i< list.size(); i++) {
 				float value = Float.parseFloat(list.get(i)[0].toString());
@@ -187,41 +182,65 @@ EntityManager em = HibernateUtil.getEntityManager();
 	
 	public String getDataForDetailedGraphic(Date dateS, Date dateE, String subcategory, int user){
 		System.out.println( dateS.toString() + dateE.toString() + subcategory);
-		Query query = em.createNativeQuery("select t.valor as value, t.data_transacao as date, s.nome as subcategory"
-				+ " from transacao t "
-				+ " join subcategoria s "
-				+ " on t.subcategoria = s.subcategoria_id "
-				+ " join usuario u "
-				+ " on u.usuario_id = t.usuario "
-				+ " where s.nome = ? "
-				+ " and u.usuario_id = ?"
-				+ " and t.data_transacao between ? and ? ");
+		//CategoriaDao dao = new CategoriaDao();
+		/*
+		//when it's showing the general graphic and it'll create the detailed graphic, 
+		//it's needed return the data for the normal graphic not the detailed graphic;
+		//this algorithm will verify if ti's coming from the general graphic
+		String categories = dao.getCategories();
 		
-		System.out.println(user);
-		query.setParameter(1, subcategory);
-		query.setParameter(2, user);   //get user from cookie
-		query.setParameter(3, dateS);
-		query.setParameter(4, dateE);
+		JsonParser parser = new JsonParser();
+		JsonArray jsonCat = (JsonArray)parser.parse(categories);
 		
-		List<Object[]> list = new ArrayList<Object[]>();
-		list = query.getResultList();
-		//System.out.println(list.size());
-		
-		List<ModelDetailedGraphic> modelList = new ArrayList<ModelDetailedGraphic>();
-		
-		for (int i =0 ;i< list.size(); i++) {
-			float value = Float.parseFloat(list.get(i)[0].toString());
-			String dateString= list.get(i)[1].toString();
-			String subcat = list.get(i)[2].toString();
-				
-			ModelDetailedGraphic model = new ModelDetailedGraphic(dateString, value, subcat) ;
-			modelList.add(model);
-		};		
-		
-		Gson gson = new  Gson();
-		String json = gson.toJson(modelList);
-		System.out.println(json);
-		return json;
+		String dataForGraphic = null;
+		if(categories.contains(subcategory)){
+			for (JsonElement jsonElement : jsonCat) {
+				JsonObject obj = jsonElement.getAsJsonObject();
+				if(obj.get("nome").getAsString().equals(subcategory)){
+					System.out.println(obj.get("id").getAsInt());
+					dataForGraphic = getDataForGraphic(dateS, dateE, obj.get("id").getAsInt(), user);
+				}
+			};
+			return dataForGraphic;
+		}
+		else{
+		*/
+			Query query = em.createNativeQuery("select t.valor as value, t.data_transacao as date, s.nome as subcategory"
+					+ " from transacao t "
+					+ " join subcategoria s "
+					+ " on t.subcategoria = s.subcategoria_id "
+					+ " join usuario u "
+					+ " on u.usuario_id = t.usuario "
+					+ " where s.nome = ? "
+					+ " and u.usuario_id = ?"
+					+ " and t.data_transacao between ? and ? ");
+			
+			System.out.println(user);
+			query.setParameter(1, subcategory);
+			query.setParameter(2, user);   //get user from cookie
+			query.setParameter(3, dateS);
+			query.setParameter(4, dateE);
+			
+			List<Object[]> list = new ArrayList<Object[]>();
+			list = query.getResultList();
+			//System.out.println(list.size());
+			
+			List<ModelDetailedGraphic> modelList = new ArrayList<ModelDetailedGraphic>();
+			
+			for (int i =0 ;i< list.size(); i++) {
+				float value = Float.parseFloat(list.get(i)[0].toString());
+				String dateString= list.get(i)[1].toString();
+				String subcat = list.get(i)[2].toString();
+					
+				ModelDetailedGraphic model = new ModelDetailedGraphic(dateString, value, subcat) ;
+				modelList.add(model);
+			};		
+			
+			Gson gson = new  Gson();
+			String json = gson.toJson(modelList);
+			System.out.println(json);
+			return json;
+		//}
 	}
 	
 	
@@ -241,9 +260,6 @@ EntityManager em = HibernateUtil.getEntityManager();
 		list = query.getResultList();
 		
 		List<ModelDataTable> dataTable = new ArrayList<ModelDataTable>();
-		
-		list = query.getResultList();
-		SimpleDateFormat sdf  = new SimpleDateFormat("dd/MM/yyyy");
 		
 		for (int i =0 ;i< list.size(); i++) {
 			float value = Float.parseFloat(list.get(i)[0].toString());

@@ -104,7 +104,7 @@ public class Email {
              *  2 - seu nome de usuario do gmail 
              *  3 - sua senha do gmail 
              */  
-            tr.connect(mailSMTPServer, "danielamaradms@gmail.com", "silvamaradaniela2804");  
+            tr.connect(mailSMTPServer, "danielamaradms@gmail.com", "viajareamelhorcoisadomundo2804");  
             msg.saveChanges(); // don't forget this  
             //envio da mensagem  
             tr.sendMessage(msg, msg.getAllRecipients());  
