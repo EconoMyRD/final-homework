@@ -193,7 +193,6 @@ public class Transaction {
 		return "delete ok";
 	}
 	
-	
 	@GET
 	@Path("/getAll/user/{user}")
 	public String GetByUser(@PathParam("user") int user)
@@ -203,5 +202,14 @@ public class Transaction {
 		model.setData(transacaoDAO.GetTransacaoByUser(user));
 		
 		return gson.toJson(model);
+	}
+	
+	@GET
+	@Path("/get/{id}")
+	public String getTransactionId(@PathParam("id") int id)
+	{
+		Transacao transacao = transacaoDAO.GetTransacaoById(id);
+		Gson gson = new Gson();
+		return gson.toJson(transacao);
 	}
 }

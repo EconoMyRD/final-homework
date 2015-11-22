@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <title>Sua Conta Economy | Controle Financeiro Pessoal</title>
     <link rel="stylesheet" href="../assets/css/datatables.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -24,11 +25,51 @@
             </tr>
         </thead>
     </table>
+    <div id="ItemPopup" hidden="hidden">
+        <form>
+            <fieldset>
+                <input type="hidden" id="rowId">
+                <label for="description">
+                    Descrição:
+                    <input type="text" id="description" class="inputComentario" maxlength="300" required/>
+                </label>
+                <br>
+                <label for="value">
+                    Valor:
+                    <input type="number" id="value" class="field" step="any" required/>
+                </label>
+                <br>
+                <label for="category">
+                    Categoria:
+                    <select name="category" id="category" class="field" required>
+                    </select>
+                </label>
+                <br>
+                <label for="subcategory">
+                    Subcategoria:
+                    <select id="subcategory" class="field" required>
+                    </select>
+                </label>
+                <br>
+                <label for="date_transaction">
+                    Data:
+                    <input type="date" id="date_transaction" class="field" required/>
+                </label>
+                <br>
+                <label>
+                    <input id="submit" type="submit" value="Editar" class="botao" />
+                </label>
+            </fieldset>
+        </form>
+    </div>
 </body>
 
 <script src="../assets/js/jquery-1.11.3.min.js"></script>
+<script src="../assets/js/jquery-ui.js"></script>
 <script src="../assets/js/jquery.dataTables.min.js"></script>
+<script src="../assets/js/dataTables.jqueryui.min.js"></script>
 <script src="../assets/js/FactoryConnection.js"></script>
+<script src="../assets/js/tableTransactionService.js"></script>
 <script src="../assets/js/tableTransaction.js"></script>
 
 </html>

@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     var table = getData();
 
-    $('#example tbody').on('click', 'button', function () {
+    $('#example tbody').on('click', '#btn-delete', function () {
         debugger;
         var data = table.row($(this).parents('tr')).data();
 
@@ -20,6 +20,18 @@ $(document).ready(function () {
         });
 
     });
+
+    $('#example tbody').on('click', '#btn-edit', function () {
+        debugger;
+        var data = table.row($(this).parents('tr')).data();
+        $('#rowId').attr('value', data[0]);
+        $('#ItemPopup').dialog({
+            title: 'Editar Transação',
+            width: 600,
+            height: 400
+        });
+        TransactionService.init();
+    });
 });
 
 
@@ -31,7 +43,7 @@ function getData() {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<button>Apagar</button>"
+            "defaultContent": "<button id='btn-delete'>Apagar</button>" + "    " + "<button id='btn-edit'>Editar</button>"
         }]
     });
 
