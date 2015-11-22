@@ -24,15 +24,11 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.org.apache.xml.internal.serializer.TransformStateSetter;
 
-import br.com.economy.DAO.CategoriaDao;
 import br.com.economy.DAO.TransactionDAO;
 import br.com.economy.DAO.UserDao;
 import br.com.economy.entities.Transacao;
 import br.com.economy.model.ModelAllTransaction;
-import javassist.expr.Instanceof;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 @Path("/transaction")
 public class Transaction {
@@ -219,7 +215,6 @@ public class Transaction {
 		return "delete ok";
 	}
 	
-	
 	@GET
 	@Path("/getAll/user/{user}")
 	public String GetByUser(@PathParam("user") int user)
@@ -229,5 +224,14 @@ public class Transaction {
 		model.setData(transacaoDAO.GetTransacaoByUser(user));
 		
 		return gson.toJson(model);
+	}
+	
+	@GET
+	@Path("/get/{id}")
+	public String getTransactionId(@PathParam("id") int id)
+	{
+		Transacao transacao = transacaoDAO.GetTransacaoById(id);
+		Gson gson = new Gson();
+		return gson.toJson(transacao);
 	}
 }
