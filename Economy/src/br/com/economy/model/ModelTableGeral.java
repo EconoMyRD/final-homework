@@ -1,10 +1,8 @@
 package br.com.economy.model;
 
-import java.util.Date;
-
 public class ModelTableGeral {
 	private String subategory;
-	private String category;
+	private String nameCat;
 	private float value;
 	private String description;
 	private String date;
@@ -16,10 +14,10 @@ public class ModelTableGeral {
 		this.subategory = subategory;
 	}
 	public String getCategory() {
-		return category;
+		return nameCat;
 	}
 	public void setCategory(String category) {
-		this.category = category;
+		this.nameCat = category;
 	}
 	public float getValue() {
 		return value;
@@ -43,7 +41,7 @@ public class ModelTableGeral {
 	public ModelTableGeral(String subategory, String category, float value, String description, String date) {
 		super();
 		this.subategory = subategory;
-		this.category = category;
+		this.nameCat = category;
 		this.value = value;
 		this.description = description;
 		this.date = date;

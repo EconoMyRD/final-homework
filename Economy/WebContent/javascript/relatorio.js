@@ -9,21 +9,21 @@ var Relatorio = {
     },
     
     
-    total: function(){
-    	$.ajax({
-    		url : Relatorio.connection + '/resources/user/sale/' + sessionStorage.getItem('userId'),
-    		method:'GET',
-    		success: function(total) {
-    			Relatorio.showTotal(total);
-    		}
-		});
-    },
-    
-    
-    showTotal: function(total){
-    	var field = document.getElementById('total');
-    	field.innerHTML = 'Saldo : R$ ' + total;
-    },
+//    total: function(){
+//    	$.ajax({
+//    		url : Relatorio.connection + '/resources/user/sale/' + sessionStorage.getItem('userId'),
+//    		method:'GET',
+//    		success: function(total) {
+//    			Relatorio.showTotal(total);
+//    		}
+//		});
+//    },
+//    
+//    
+//    showTotal: function(total){
+//    	var field = document.getElementById('total');
+//    	field.innerHTML = 'Saldo : R$ ' + total;
+//    },
     
    
     getRelatory: function(event) {
@@ -38,7 +38,7 @@ var Relatorio = {
         var dateEnd =  Relatorio.formatDate(dateE);
 
         MakeGraphic.getDataForGraphic(dateStart, dateEnd, category);
-        Relatorio.total();
+       // Relatorio.total();
     },
 
     

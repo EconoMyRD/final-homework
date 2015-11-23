@@ -66,7 +66,7 @@ EntityManager em = HibernateUtil.getEntityManager();
 			System.out.println(json);
 			return json;
 		}
-			else{
+		else{
 			Query query = em.createNativeQuery("select sum(t.valor) as value, c.nome as name from transacao t "
 					+ " join subcategoria s on t.subcategoria = s.subcategoria_id "
 					+ " join categoria c on s.categoria_id = c.categoria_id"

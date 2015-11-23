@@ -147,10 +147,10 @@ var MakeGraphic = {
     
     getSubcategory: function(json) {
 		//alert(JSON.stringify(json));
-    	if(json.hasOwnProperty('subcategory'))
+    	//if(json.hasOwnProperty('subcategory'))
     		return json[0].subcategory;
-    	else
-    		return json[0].category
+    	//else
+    	//	return json[0].category
 	},
 	
 
@@ -227,19 +227,36 @@ var MakeGraphic = {
     },    
     
     
-    getDataForTable: function(json) {    	
+    getDataForTable: function(json, total) {    	
     	var records = [];
         for (var j in json) {
             records.push({recid: j, categoria: json[j].nameCat, descricao: json[j].description , valor: json[j].value, data: new Date(json[j].date).toLocaleString().split(" ")[0] });
         }
-        records.push({summary: true, recid: '', categoria: '<span style="float: right;font-size: 20px;">Saldo</span>', descricao: '65151'});
+        records.push({summary: true, recid: '', categoria: '<span style="float: right;font-size: 20px;">Saldo</span>', descricao: '<span style="float: left;font-size: 20px;">R$ ' + total + '</span>'});
        return records;
 	},
 	
 	
+	total: function(callback){
+    	$.ajax({
+    		url : Relatorio.connection + '/resources/user/sale/' + sessionStorage.getItem('userId'),
+    		method:'GET',
+    		success: function(total) {
+    			callback(total);
+    		}
+		});
+    },
+	
     createTable: function(json) {
-    	//get data to put in the table
+    	var callback = function(total){
+    		MakeGraphic.drawTable(json,total);
+    	};
     	
+    	MakeGraphic.total(callback);
+    	
+    },
+    
+    drawTable: function(json, total){
     	var data = MakeGraphic.getDataForTable(json);
     	console.log(data);
 	    $(function () {    
@@ -278,8 +295,9 @@ var MakeGraphic = {
 	        });
 	        
 	        w2ui['table'].clear();
-	        w2ui['table'].add(MakeGraphic.getDataForTable(json));
+	        w2ui['table'].add(MakeGraphic.getDataForTable(json, total));
 	        
 	    });
     }
+    
 };
