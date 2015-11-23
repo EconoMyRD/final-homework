@@ -7,9 +7,12 @@ var MakeGraphic = {
 		$.ajax({
 			url: MakeGraphic.connection + '/resources/transaction/relatory/',
 			data:{'dateStart': dateS , 'dateEnd': dateE, 'category': cat, 'userId': sessionStorage.getItem('userId')},
-			method: 'GET',
+			//method: 'GET',
+			type: 'GET',
+			contentType: 'application/json',
+			//dataType: "json",
 			success: function(jsonString){
-				console.log(jsonString);
+				
 				var json = JSON.parse(jsonString);
 				var jsonGraphic = JSON.parse(json[0]);
 				var jsonTable = JSON.parse(json[1]);
@@ -161,7 +164,7 @@ var MakeGraphic = {
 	
 	
     getDataForDetailedGraphic: function(subcategory) {
-    	if($("#category option:selected").text() == "Geral"){
+//    	if($("#category option:selected").text() == "Geral"){
     		var dateS = new Date();
             var dateE = new Date();
             dateS = $('#dateStart').val();
@@ -169,33 +172,50 @@ var MakeGraphic = {
             
             var dateStart = Relatorio.formatDate(dateS);
             var dateEnd =  Relatorio.formatDate(dateE);
-            MakeGraphic.getDataForGraphic(dateStart, dateEnd, subcategory);
-    	}
-    	else{
-    		var dateS = new Date();
-    		var dateE = new Date();
-    		dateS = $('#dateStart').val();
-    		dateE = $('#dateEnd').val();
-    		
-    		var dateStart = Relatorio.formatDate(dateS);
-    		var dateEnd =  Relatorio.formatDate(dateE);
-    		
-    		$.ajax({
-    			url : MakeGraphic.connection + '/resources/transaction/relatory/detailed',
-    			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory, 'userId': sessionStorage.getItem('userId')},
-    			method: 'GET',
-    			
-    			success: function(jsonString) {
-    				var json = JSON.parse(jsonString);
-    				
-    				var jsonGraphic = JSON.parse(json[0]);
-    				var jsonTable = JSON.parse(json[1]);
-    				
-    				MakeGraphic.drawDetailedChart(jsonGraphic);
-    				MakeGraphic.createTable(jsonTable);
+//            MakeGraphic.getDataForGraphic(dateStart, dateEnd, subcategory);
+//    	}
+            var flag =0;
+    	$.ajax({
+    		url: MakeGraphic.connection + '/resources/category',
+    		success:function(json){
+    			for(var i =0;i<Object.keys(json).length; i++){
+    				if(json[i].nome == subcategory){
+    					flag=1;
+    					break;
+    				}
     			}
-    		});
-    	}
+    			if(flag){
+    				MakeGraphic.getDataForGraphic(dateStart, dateEnd, subcategory);
+    			}
+    			else{
+//    				var dateS = new Date();
+//    	    		var dateE = new Date();
+//    	    		dateS = $('#dateStart').val();
+//    	    		dateE = $('#dateEnd').val();
+//    	    		
+//    	    		var dateStart = Relatorio.formatDate(dateS);
+//    	    		var dateEnd =  Relatorio.formatDate(dateE);
+//    	    		
+    	    		$.ajax({
+    	    			url : MakeGraphic.connection + '/resources/transaction/relatory/detailed',
+    	    			data: {'dateStart' : dateStart , 'dateEnd' : dateEnd, 'subcategory' : subcategory, 'userId': sessionStorage.getItem('userId')},
+    	    			method: 'GET',
+    	    			
+    	    			success: function(jsonString) {
+    	    				var json = JSON.parse(jsonString);
+    	    				
+    	    				var jsonGraphic = JSON.parse(json[0]);
+    	    				var jsonTable = JSON.parse(json[1]);
+    	    				
+    	    				MakeGraphic.drawDetailedChart(jsonGraphic);
+    	    				MakeGraphic.createTable(jsonTable);
+    	    			}
+    	    		});
+    			}
+    		}
+    	
+    	});
+    	
     },
 
     
@@ -209,7 +229,6 @@ var MakeGraphic = {
     
     getDataForTable: function(json) {    	
     	var records = [];
-    	
         for (var j in json) {
             records.push({recid: j, categoria: json[j].nameCat, descricao: json[j].description , valor: json[j].value, data: new Date(json[j].date).toLocaleString().split(" ")[0] });
         }

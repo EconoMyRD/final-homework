@@ -32,7 +32,7 @@ public class User {
        
 	UserDao DAO = new UserDao();
     
-    @PUT
+    @GET
 	@Path("/active/{email}")
 	public Response activeUser(@PathParam("email") String email){
 		DAO.activateUser(email);
@@ -101,19 +101,6 @@ public class User {
 	}
 	
 	
-//	@GET
-//	@Path("/logout")
-//	public void logout( @Context HttpServletRequest request) throws ServletException, IOException
-//	{
-//        Cookie cookies[] = request.getCookies();
-//        for(Cookie cookie : cookies){
-//        	
-//		        cookie.setMaxAge(0);
-//		        cookie.setPath("/");
-//		        HttpSession session = request.getSession();
-//		        session.invalidate();		        
-//		}
-//	}
 
 	
 	@POST
@@ -126,7 +113,7 @@ public class User {
 		String message = "Olá " + json.get("nome").getAsString() +
 				"\n\nPara ativar sua conta clique no link abaixo."
 				+ "\nVocê pode entrar em sua conta utilizando seu email e sua senha: " + json.get("senha").getAsString() + 
-				"\n\n http://localhost:8080/Economy/servletActivateUser?email=" + json.get("email").getAsString();
+				"\n\n http://localhost:8080/Economy/resources/user/active/" + json.get("email").getAsString();
 		Email sender = new Email();
 		sender.sendMail("ricardo.jonas.faria@gmail.com", json.get("email").getAsString(), "ativação de sua conta Economy", message);
 	}
