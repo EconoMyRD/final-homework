@@ -39,14 +39,32 @@ $(document).ready(function () {
 
 function getData() {
     var connection = FactoryConnection.getConnection();
-
+    
     var table = $('#example').DataTable({
         "ajax": connection + '/resources/transaction/getAll/user/' + sessionStorage.getItem('userId'),
+        "sDom": '<"top">rt<"bottom"flp><"clear">',
+        
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<button id='btn-delete'>Apagar</button>" + "    " + "<button id='btn-edit'>Editar</button>"
-        }]
+            "defaultContent": "<button id='btn-delete' class='btn btn-danger'>Apagar</button>" + "    " + "<button id='btn-edit' class='btn btn-warning'>Editar</button>"
+        },
+        {
+            "targets": [ 0 ],
+            "visible": false,
+            "searchable": false
+        },
+        {
+            "targets": [ 1 ],
+            "visible": false,
+            "searchable": false
+        },
+        {
+            "targets": [ 2 ],
+            "visible": false,
+            "searchable": false
+        }
+        ]
     });
 
     return table;
