@@ -28,13 +28,12 @@ import javax.ws.rs.core.Context;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.org.apache.xml.internal.serializer.TransformStateSetter;
 
+import br.com.economy.DAO.CategoriaDao;
 import br.com.economy.DAO.TransactionDAO;
 import br.com.economy.DAO.UserDao;
 import br.com.economy.entities.Transacao;
 import br.com.economy.model.ModelAllTransaction;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 @Path("/transaction")
 public class Transaction {
@@ -107,13 +106,35 @@ public class Transaction {
 	}
 
 	
+	public static boolean isInteger(String s) {
+	    try { 
+	        Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    } catch(NullPointerException e) {
+	        return false;
+	    }
+	    // only got here if we didn't return false
+	    return true;
+	}
+	
 	@GET
 	@Path("/relatory")
 	public String relatory(@QueryParam("dateStart") String dateStart, @QueryParam("dateEnd") String dateEnd,
-			@QueryParam("category") int category, @QueryParam("userId") int userId, @Context HttpServletRequest request, 
+			@QueryParam("category") String cat, @QueryParam("userId") int userId, @Context HttpServletRequest request, 
 			@Context HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println(dateEnd + dateStart);
+		int category;
+		
+		if(isInteger(cat)){
+			category = Integer.parseInt(cat);
+		}
+		else{
+			System.out.println(cat.toString());
+			CategoriaDao catDAO = new CategoriaDao();
+			category = catDAO.getCategoryId(cat.toString());
+		}
+		
 		TransactionDAO DAO = new TransactionDAO();
 		
 		Date dateE = new Date();

@@ -41,4 +41,13 @@ public class CategoriaDao
 		Categoria categoria = em.find(Categoria.class, idCategoria);
 		return categoria;
 	}
+
+	
+	public int getCategoryId(String category) {
+		Query query = em.createNativeQuery("select c.categoria_id from categoria c where c.nome = ?");
+		query.setParameter(1, category);
+		
+		int id = (int) query.getSingleResult();
+		return id;
+	}
 }

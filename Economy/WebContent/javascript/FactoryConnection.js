@@ -7,7 +7,7 @@ var FactoryConnection = {
 			}
 			else{
 				// return the web conection
-				return "http://54.94.187.47";
+				return "http://http://economybr.cf/";
 			}
 		}
 }

@@ -2,10 +2,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import br.com.economy.DAO.CategoriaDao;
 import br.com.economy.DAO.TransactionDAO;
 
 public class test {
 	public static void main(String[] args) {
+		/*
 		TransactionDAO dao = new TransactionDAO();
 		SimpleDateFormat sdf =  new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -22,7 +24,8 @@ public class test {
 			e.printStackTrace();
 		}
 		
-		
-		System.out.println(dao.getDataForTable(dates, datee, 0, 1));
+		*/
+		CategoriaDao dao =new CategoriaDao();
+		System.out.println(dao.getCategoryId("alimentação"));
 	}
 }
