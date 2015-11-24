@@ -230,7 +230,7 @@ var MakeGraphic = {
     getDataForTable: function(json, total) {    	
     	var records = [];
         for (var j in json) {
-            records.push({recid: j, categoria: json[j].nameCat, descricao: json[j].description , valor: json[j].value, data: new Date(json[j].date).toLocaleString().split(" ")[0] });
+            records.push({recid: json[j].id, categoria: json[j].nameCat, descricao: json[j].description , valor: json[j].value, data: new Date(json[j].date).toLocaleString().split(" ")[0] });
         }
         records.push({summary: true, recid: '', categoria: '<span style="float: right;font-size: 20px;">Saldo</span>', descricao: '<span style="float: left;font-size: 20px;">R$ ' + total + '</span>'});
        return records;
@@ -272,32 +272,67 @@ var MakeGraphic = {
 	                { field: 'data', caption: 'data', type: 'date' },
 	            ],
 	            columns: [                
-	                { field: 'recid', caption: 'ID', size: '5%', sortable: true, attr: 'align=center' },
+	               // { field: 'recid', caption: 'ID', size: '5%', sortable: true, attr: 'align=center' },
 	                { field: 'categoria', caption: 'categoria', size: '20%', sortable: true },
-	                { field: 'descricao', caption: 'descricão', size: '35%', sortable: true },
-	                { field: 'valor', caption: 'valor', size: '20%', sortable: true },
-	                { field: 'data', caption: 'data', size: '20%', sortable: true },
+	                { field: 'descricao', caption: 'descricão', size: '35%', sortable: true, /*editable: { type: 'text' } */},
+	                { field: 'valor', caption: 'valor', size: '20%', sortable: true, render: 'money' ,/* editable: { type: 'float' }*/style: 'text-align: center'},
+	                { field: 'data', caption: 'data', size: '20%', sortable: true , /*editable: { type: 'date' }*/},
 	            ],
-	            onAdd: function (event) {
-	                w2alert('add');
+	           
+	            records: [ ],
+	            
+	            toolbar: {
+	                items: [
+	                    { id: 'save', type: 'button', caption: 'Salvar', icon: 'w2ui-icon-plus' }
+	                ],
+	                onClick: function (event) {
+	                    if (event.target == 'save') {
+	                    	MakeGraphic.updateTransaction();
+	                        //alert(w2ui['table'].getChanges().recid)
+	                    }
+	                }
 	            },
-	            onEdit: function (event) {
-	                w2alert('edit');
-	            },
-	            onDelete: function (event) {
-	                console.log('delete has default behaviour');
-	            },
-	            onSubmit: function (event) {
-	                w2alert('save');
-	            },
-	            records: [  
-	                  ]
 	        });
 	        
 	        w2ui['table'].clear();
 	        w2ui['table'].add(MakeGraphic.getDataForTable(json, total));
 	        
 	    });
+    },
+    
+    updateTransaction: function(){
+    	var update = function(json){
+    		var changes = w2ui['table'].getChanges()[0];
+    		json.valor = changes.valor;
+    		json.descricao = changes.descricao;
+    		json.data = changes.data;
+    		
+    		console.log(json);
+    		$.ajax({
+    			url: MakeGraphic.connection + '/resources/transaction/update/' + changes.recid,
+    			method: 'PUT',
+    			data: json,
+    			
+    			success: function(){
+    				alert('ok');
+    			}
+    		});
+    	};
+    	MakeGraphic.getById(update);
+    	
+    },
+    
+    
+    getById: function(callback){
+    	$.ajax({
+    		url: MakeGraphic.connection + '/resources/transaction/get/' + w2ui['table'].getChanges()[0].recid,
+    		method:'GET',
+    		
+    		success: function(transaction){
+    			var json = JSON.parse(transaction);
+    			callback(json);
+    		}
+    	});
     }
     
 };

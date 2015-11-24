@@ -6,7 +6,14 @@ public class ModelTableGeral {
 	private float value;
 	private String description;
 	private String date;
+	private int id;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getSubategory() {
 		return subategory;
 	}
@@ -38,13 +45,14 @@ public class ModelTableGeral {
 		this.date = date;
 	}
 	
-	public ModelTableGeral(String subategory, String category, float value, String description, String date) {
+	public ModelTableGeral(String subategory, String category, float value, String description, String date, int id) {
 		super();
 		this.subategory = subategory;
 		this.nameCat = category;
 		this.value = value;
 		this.description = description;
 		this.date = date;
+		this.id = id;
 	}
 	
 	

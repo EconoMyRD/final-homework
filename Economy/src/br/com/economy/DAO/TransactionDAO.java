@@ -104,12 +104,12 @@ EntityManager em = HibernateUtil.getEntityManager();
 	
 	public String getDataForTable(Date dateStart, Date dateEnd, int category, int user){
 		if(category > 0){
-			Query query = em.createNativeQuery("select  sum(t.valor) as value, s.nome as name, c.nome as nameCat,"
+			Query query = em.createNativeQuery("select sum(t.valor) as value, s.nome as name, c.nome as nameCat,"
 					+ " t.descricao as description, t.data_transacao as date,	s.subcategoria_id as subcategory, "
-					+ " s.categoria_id as category from transacao t	join subcategoria s on t.subcategoria = s.subcategoria_id "
+					+ " s.categoria_id as category, t.transacao_id as id from transacao t	join subcategoria s on t.subcategoria = s.subcategoria_id "
 					+ " join usuario u on t.usuario = u.usuario_id join categoria c	on c.categoria_id = s.categoria_id	"
 					+ " where s.categoria_id = ? and u.usuario_id = ?	and t.data_transacao between ? and ? "
-					+ " group by s.nome, s.subcategoria_id, s.categoria_id, t.data_transacao, t.descricao,c.nome;");
+					+ " group by s.nome, s.subcategoria_id, s.categoria_id, t.data_transacao, t.descricao,c.nome, t.transacao_id");
 			
 			query.setParameter(1, category);
 			query.setParameter(2, user);
@@ -131,8 +131,9 @@ EntityManager em = HibernateUtil.getEntityManager();
 				String date = list.get(i)[4].toString();
 				int subcategory = Integer.parseInt(list.get(i)[5].toString());
 				int cat = Integer.parseInt(list.get(i)[6].toString());
+				int id = Integer.parseInt(list.get(i)[7].toString());
 				
-				ModelDataTable model = new ModelDataTable(value,name,subcategory,cat,date,description,nameCat);
+				ModelDataTable model = new ModelDataTable(value,name,subcategory,cat,date,description,nameCat, id);
 				
 				dataTable.add(model);
 			}
@@ -143,8 +144,8 @@ EntityManager em = HibernateUtil.getEntityManager();
 			return json;
 		}
 		else{
-			Query query = em.createNativeQuery("select  t.valor as value, s.nome as name, c.nome as nameCat,"
-					+ " t.descricao as description, t.data_transacao as date "
+			Query query = em.createNativeQuery("select t.valor as value, s.nome as name, c.nome as nameCat,"
+					+ " t.descricao as description, t.data_transacao as date , t.transacao_id as id "
 					+ "  from transacao t	join subcategoria s on t.subcategoria = s.subcategoria_id "
 					+ " join usuario u on t.usuario = u.usuario_id join categoria c	on c.categoria_id = s.categoria_id	"
 					+ " where  u.usuario_id = ?	and t.data_transacao between ? and ? ");
@@ -166,8 +167,9 @@ EntityManager em = HibernateUtil.getEntityManager();
 				String cat = list.get(i)[2].toString().toString();
 				String description = list.get(i)[3].toString();
 				String date = list.get(i)[4].toString();
+				int id = Integer.parseInt(list.get(i)[5].toString());
 				
-				ModelTableGeral model = new ModelTableGeral(subcategory,cat,value,description,date);
+				ModelTableGeral model = new ModelTableGeral(subcategory,cat,value,description,date, id);
 				
 				dataTable.add(model);
 			}
@@ -247,7 +249,7 @@ EntityManager em = HibernateUtil.getEntityManager();
 	public String getDataForDetailedTable(Date dateStart, Date dateEnd, String subcategory, int user) {
 		Query query = em.createNativeQuery("select  t.valor as value, s.nome as name, c.nome as nameCat,"
 				+ " t.descricao as description, t.data_transacao as date,	s.subcategoria_id as subcategory, "
-				+ " s.categoria_id as category from transacao t	join subcategoria s on t.subcategoria = s.subcategoria_id "
+				+ " s.categoria_id as category, t.transacao_id as id from transacao t	join subcategoria s on t.subcategoria = s.subcategoria_id "
 				+ " join usuario u on t.usuario = u.usuario_id join categoria c	on c.categoria_id = s.categoria_id	"
 				+ " where s.nome = ? and u.usuario_id = ?	and t.data_transacao between ? and ? ");
 		
@@ -269,8 +271,9 @@ EntityManager em = HibernateUtil.getEntityManager();
 			String date = list.get(i)[4].toString();
 			int subcat = Integer.parseInt(list.get(i)[5].toString());
 			int cat = Integer.parseInt(list.get(i)[6].toString());
+			int id = Integer.parseInt(list.get(i)[7].toString());
 			
-			ModelDataTable model = new ModelDataTable(value,name,subcat,cat,date,description,nameCat);
+			ModelDataTable model = new ModelDataTable(value,name,subcat,cat,date,description,nameCat, id);
 			
 			dataTable.add(model);
 		}

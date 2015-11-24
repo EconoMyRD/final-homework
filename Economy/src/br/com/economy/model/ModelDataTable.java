@@ -8,10 +8,19 @@ public class ModelDataTable {
 	private String date;
 	private String description;
 	private String nameCat;
+	private int id;
 	
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public ModelDataTable(float value, String name, int subcategory, int categoria, String date, String description,
-			String nameCat) {
+			String nameCat, int id) {
 		super();
 		this.value = value;
 		this.name = name;
@@ -20,6 +29,7 @@ public class ModelDataTable {
 		this.date = date;
 		this.description = description;
 		this.nameCat = nameCat;
+		this.id = id;
 	}
 
 	public String getDate() {
