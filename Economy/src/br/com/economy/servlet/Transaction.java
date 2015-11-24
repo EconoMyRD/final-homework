@@ -1,5 +1,6 @@
 package br.com.economy.servlet;
 
+import java.awt.PageAttributes.MediaType;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,9 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -39,8 +44,7 @@ public class Transaction {
 	
 	@POST
 	//@Consumes(MediaType.APPLICATION_JSON)
-	public void setTransaction( String j/*@Context HttpServletRequest request,
-			@Context HttpServletResponse response*/) throws IOException {
+	public void setTransaction( String j) throws IOException {
 
 		System.out.println(j);
 		JsonParser parser = new JsonParser();
@@ -176,11 +180,32 @@ public class Transaction {
 	}	
 	
 	@PUT
-	@Path("/update/{transacao}")
-	@Produces("application/json")
-	public String UpdateTransaction(@PathParam("transacao") Transacao transacao)
+	@Path("/update")
+	//@Consumes("aplication/json")
+	public String UpdateTransaction(String transacao)
 	{
-		transacaoDAO.Update(transacao);
+		JsonParser parser = new JsonParser();
+		JsonObject json = (JsonObject)parser.parse(transacao);
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date data_transacao = new Date();
+		Date dataRegistro = new Date();
+		try {
+			data_transacao = format.parse(json.get("data_transacao").getAsString());
+			dataRegistro = format.parse(json.get("dataRegistro").getAsString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Integer id = json.get("id").getAsInt();
+		int subcategoria = json.get("subcategoria").getAsInt();
+		int usuarioId = json.get("usuarioId").getAsInt();
+		String descricao = json.get("descricao").getAsString();
+		float valor = json.get("valor").getAsFloat();
+		
+		Transacao transaction = new Transacao(id, subcategoria, usuarioId, data_transacao, descricao, valor, dataRegistro);
+		
+		transacaoDAO.Update(transaction);
 		return "ok";
 	}
 	

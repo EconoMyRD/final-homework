@@ -71,9 +71,20 @@ public class Transacao implements Serializable
 	
 	public Transacao() 
 	{
+	}	
+	
+	public Transacao(Integer id, int subcategoria, int usuarioId, Date data_transacao, String descricao, float valor,
+			Date dataRegistro) {
+		this.id = id;
+		this.subcategoria = subcategoria;
+		this.usuarioId = usuarioId;
+		this.data_transacao = data_transacao;
+		this.descricao = descricao;
+		this.valor = valor;
+		this.dataRegistro = dataRegistro;
 	}
-	
-	
+
+
 	public Integer getId() 
 	{
 		return id;

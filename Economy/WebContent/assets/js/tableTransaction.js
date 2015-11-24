@@ -24,7 +24,9 @@ $(document).ready(function () {
     $('#example tbody').on('click', '#btn-edit', function () {
         debugger;
         var data = table.row($(this).parents('tr')).data();
+        console.log("Dataaaaa: " + data);
         $('#rowId').attr('value', data[0]);
+        $('#data_registro').attr('value', data[6]);
         $('#ItemPopup').dialog({
             title: 'Editar Transação',
             width: 600,
