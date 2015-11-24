@@ -5,14 +5,57 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="../favicon.ico">
     <title>Sua Conta Economy | Controle Financeiro Pessoal</title>
     <link rel="stylesheet" href="../assets/css/datatables.css">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="../assets/css/Estilos.css">
+    
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+	<header>
+		<nav>
+			<ul>
+				<li><a href="index.html" class="menu-interno">Novo Lançamento</a></li>
+				<li><a href="relatorio.html" class="menu-interno">Relatórios</a></li>
+				<li><a href="estatisticas.html" class="menu-interno">Estatísticas</a></li>
+			</ul>
+		</nav>
+		<div id="exit">Sair</div>
+	</header>
+	
+	<form id="lancamento">
+          <fieldset>
+             <label for="description">
+                 Descrição:
+                 <input type="text" id="description" class="inputComentario" maxlength="300" required/>        
+             </label>
+             <label for="value">
+                 Valor:
+                 <input type="number" id="value" class="field" step="any" required/>        
+             </label>
+             <label for="category">
+                 Categoria:
+                 <select name="category" id="category" class="field" required>
+                 </select>
+             </label>  
+             <label for="subcategory">
+                 Subcategoria:
+                 <select  id="subcategory" class="field" required>
+                 </select>        
+             </label>
+             <label for="date_transaction">
+                 Data:
+                 <input type="date" id="date_transaction" class="field" required/>  
+             </label>
+             <label>
+                 <input id="submit" type="submit" value="Lançar" class="botao" />
+             </label>
+         </fieldset>
+   	</form>
+
     <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -73,5 +116,6 @@
 <script src="../assets/js/FactoryConnection.js"></script>
 <script src="../assets/js/tableTransactionService.js"></script>
 <script src="../assets/js/tableTransaction.js"></script>
+<script src="../assets/js/novoLancamento.js"></script>
 
 </html>

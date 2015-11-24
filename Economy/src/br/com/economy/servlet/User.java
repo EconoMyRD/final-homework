@@ -39,7 +39,7 @@ public class User {
 		//TODO redirect to this url
 		java.net.URI location = null;
 		try {
-			location = new java.net.URI("http://localhost:8080/Economy");
+			location = new java.net.URI("http://economybr.cf");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -85,7 +85,7 @@ public class User {
     
     
 	
-    
+   /* 
 	public void initSession( String email, @Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException{
 		Usuario user = new Usuario();
 		user = DAO.getUserByEmail(email);
@@ -100,7 +100,7 @@ public class User {
 		response.addCookie(cookie);
 	}
 	
-	
+	*/
 
 	
 	@POST
@@ -113,7 +113,7 @@ public class User {
 		String message = "Olá " + json.get("nome").getAsString() +
 				"\n\nPara ativar sua conta clique no link abaixo."
 				+ "\nVocê pode entrar em sua conta utilizando seu email e sua senha: " + json.get("senha").getAsString() + 
-				"\n\n http://localhost:8080/Economy/resources/user/active/" + json.get("email").getAsString();
+				"\n\n http://economybr.cf/resources/user/active/" + json.get("email").getAsString();
 		Email sender = new Email();
 		sender.sendMail("ricardo.jonas.faria@gmail.com", json.get("email").getAsString(), "ativação de sua conta Economy", message);
 	}

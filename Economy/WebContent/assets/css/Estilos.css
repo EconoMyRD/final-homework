@@ -2,7 +2,7 @@ body
 {
   font-family:Arial;
   color:#444444;
-  font-size:1em;
+  /*font-size:1em;*/
   margin:0;
 }
 /************AUXILIARES********************/
@@ -43,6 +43,9 @@ img
     margin: 0 25%;
 }
 /*************PRINCIPAIS**********************/
+a{
+	text-decoration: none;
+}
 header
 {
   float:left;
@@ -202,6 +205,7 @@ h5
     width: 300px;           
     line-height: 3em;
 }
+
 .menu-secundario div
 {
     display: block;
@@ -318,6 +322,13 @@ input[type=date], select
     margin: 0 auto;
 }
 /*********************************************INTERNAS****************************************************/
+#date_transaction{
+	width: 10em;
+}
+
+select{
+	width: 7em;
+}
 #message, #messageLogin
 {
 	color : red;
